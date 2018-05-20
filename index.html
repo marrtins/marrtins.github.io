@@ -1,17 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
 function myFunction() {
     document.getElementById("demo").innerHTML = "Paragraph changed.";
+    //alert("aksjdklasjdk")
+    $.getJSON('https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json', function(data) {
+    document.getElementById("demo2").innerHTML = data.groups.a.matches[5].name;
+
+    var teams = data.teams;
+    groupAMatches=data.groups.a.matches;
+    groupBMatches=data.groups.b.matches;
+    groupCMatches=data.groups.c.matches;
+    groupDMatches=data.groups.d.matches;
+    groupEMatches=data.groups.e.matches;
+    groupFMatches=data.groups.f.matches;
+    groupGMatches=data.groups.g.matches;
+    groupHMatches=data.groups.h.matches;
+
+    document.getElementById("demo").innerHTML = groupAMatches[2].name;
+    
+    var list = document.createElement('ul');
+    for(var i = 0;i<groupAMatches.length;i++){
+        var item = document.createElement('li');
+        item.appendChild(document.createTextNode(groupAMatches[i].name));
+        list.appendChild(item);
+    }
+
+    return list;
+
+
+   
+
+
+    //alert("asd");
+});
 }
+
+
+
 </script>
 </head>
 
 <body>
 
+  
 <h1>A Web Page</h1>
 <p id="demo">A Paragraph</p>
+<p id="demo2">A Paragraph</p>
 <button type="button" onclick="myFunction()">Try it</button>
 
 </body>
