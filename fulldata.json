@@ -1,0 +1,586 @@
+[{"username":"juan",
+	"predictions":[
+  {
+    "id": 1,
+    "Home": "Russia",
+    "Away": "Saudi Arabia",
+    "result": "away"
+  },
+  {
+    "id": 2,
+    "Home": "Egypt",
+    "Away": "Uruguay",
+    "result": "home"
+  },
+  {
+    "id": 3,
+    "Home": "Portugal",
+    "Away": "Spain",
+    "result": "home"
+  },
+  {
+    "id": 4,
+    "Home": "Morocco",
+    "Away": "Iran",
+    "result": "away"
+  },
+  {
+    "id": 5,
+    "Home": "France",
+    "Away": "Australia",
+    "result": "away"
+  },
+  {
+    "id": 6,
+    "Home": "Peru",
+    "Away": "Denmark",
+    "result": "away"
+  },
+  {
+    "id": 7,
+    "Home": "Argentina",
+    "Away": "Iceland",
+    "result": "away"
+  },
+  {
+    "id": 8,
+    "Home": "Croatia",
+    "Away": "Nigeria",
+    "result": "away"
+  },
+  {
+    "id": 9,
+    "Home": "Brazil",
+    "Away": "Switzerland",
+    "result": "away"
+  },
+  {
+    "id": 10,
+    "Home": "Costa Rica",
+    "Away": "Serbia",
+    "result": "home"
+  },
+  {
+    "id": 11,
+    "Home": "Germany",
+    "Away": "Mexico",
+    "result": "home"
+  },
+  {
+    "id": 12,
+    "Home": "Sweden",
+    "Away": "Korea Republic",
+    "result": "draw"
+  },
+  {
+    "id": 13,
+    "Home": "Belgium",
+    "Away": "Panama",
+    "result": "home"
+  },
+  {
+    "id": 14,
+    "Home": "Tunisia",
+    "Away": "England",
+    "result": "draw"
+  },
+  {
+    "id": 15,
+    "Home": "Poland",
+    "Away": "Senegal",
+    "result": "home"
+  },
+  {
+    "id": 16,
+    "Home": "Colombia",
+    "Away": "Japan",
+    "result": "away"
+  },
+  {
+    "id": 17,
+    "Home": "Russia",
+    "Away": "Egypt",
+    "result": "draw"
+  },
+  {
+    "id": 18,
+    "Home": "Uruguay",
+    "Away": "Saudi Arabia",
+    "result": "home"
+  },
+  {
+    "id": 19,
+    "Home": "Portugal",
+    "Away": "Morocco",
+    "result": "home"
+  },
+  {
+    "id": 20,
+    "Home": "Iran",
+    "Away": "Spain",
+    "result": "draw"
+  },
+  {
+    "id": 21,
+    "Home": "France",
+    "Away": "Peru",
+    "result": "away"
+  },
+  {
+    "id": 22,
+    "Home": "Denmark",
+    "Away": "Australia",
+    "result": "home"
+  },
+  {
+    "id": 23,
+    "Home": "Argentina",
+    "Away": "Croatia",
+    "result": "draw"
+  },
+  {
+    "id": 24,
+    "Home": "Nigeria",
+    "Away": "Iceland",
+    "result": "away"
+  },
+  {
+    "id": 25,
+    "Home": "Brazil",
+    "Away": "Costa Rica",
+    "result": "away"
+  },
+  {
+    "id": 26,
+    "Home": "Serbia",
+    "Away": "Switzerland",
+    "result": "home"
+  },
+  {
+    "id": 27,
+    "Home": "Germany",
+    "Away": "Sweden",
+    "result": "home"
+  },
+  {
+    "id": 28,
+    "Home": "Korea Republic",
+    "Away": "Mexico",
+    "result": "away"
+  },
+  {
+    "id": 29,
+    "Home": "Belgium",
+    "Away": "Tunisia",
+    "result": "away"
+  },
+  {
+    "id": 30,
+    "Home": "England",
+    "Away": "Panama",
+    "result": "away"
+  },
+  {
+    "id": 31,
+    "Home": "Poland",
+    "Away": "Colombia",
+    "result": "away"
+  },
+  {
+    "id": 32,
+    "Home": "Japan",
+    "Away": "Senegal",
+    "result": "away"
+  },
+  {
+    "id": 33,
+    "Home": "Uruguay",
+    "Away": "Russia",
+    "result": "away"
+  },
+  {
+    "id": 34,
+    "Home": "Saudi Arabia",
+    "Away": "Egypt",
+    "result": "home"
+  },
+  {
+    "id": 35,
+    "Home": "Iran",
+    "Away": "Portugal",
+    "result": "home"
+  },
+  {
+    "id": 36,
+    "Home": "Spain",
+    "Away": "Morocco",
+    "result": "draw"
+  },
+  {
+    "id": 37,
+    "Home": "Denmark",
+    "Away": "France",
+    "result": "home"
+  },
+  {
+    "id": 38,
+    "Home": "Australia",
+    "Away": "Peru",
+    "result": "draw"
+  },
+  {
+    "id": 39,
+    "Home": "Nigeria",
+    "Away": "Argentina",
+    "result": "home"
+  },
+  {
+    "id": 40,
+    "Home": "Iceland",
+    "Away": "Croatia",
+    "result": "away"
+  },
+  {
+    "id": 41,
+    "Home": "Serbia",
+    "Away": "Brazil",
+    "result": "draw"
+  },
+  {
+    "id": 42,
+    "Home": "Switzerland",
+    "Away": "Costa Rica",
+    "result": "home"
+  },
+  {
+    "id": 43,
+    "Home": "Korea Republic",
+    "Away": "Germany",
+    "result": "home"
+  },
+  {
+    "id": 44,
+    "Home": "Mexico",
+    "Away": "Sweden",
+    "result": "draw"
+  },
+  {
+    "id": 45,
+    "Home": "England",
+    "Away": "Belgium",
+    "result": "away"
+  },
+  {
+    "id": 46,
+    "Home": "Panama",
+    "Away": "Tunisia",
+    "result": "home"
+  },
+  {
+    "id": 47,
+    "Home": "Japan",
+    "Away": "Poland",
+    "result": "draw"
+  },
+  {
+    "id": 48,
+    "Home": "Senegal",
+    "Away": "Colombia",
+    "result": "away"
+  }
+]
+},{
+"user":"pedro",
+"predictions":[
+  {
+    "id": 1,
+    "Home": "Russia",
+    "Away": "Saudi Arabia",
+    "result": "home"
+  },
+  {
+    "id": 2,
+    "Home": "Egypt",
+    "Away": "Uruguay",
+    "result": "draw"
+  },
+  {
+    "id": 3,
+    "Home": "Portugal",
+    "Away": "Spain",
+    "result": "away"
+  },
+  {
+    "id": 4,
+    "Home": "Morocco",
+    "Away": "Iran",
+    "result": "away"
+  },
+  {
+    "id": 5,
+    "Home": "France",
+    "Away": "Australia",
+    "result": "draw"
+  },
+  {
+    "id": 6,
+    "Home": "Peru",
+    "Away": "Denmark",
+    "result": "home"
+  },
+  {
+    "id": 7,
+    "Home": "Argentina",
+    "Away": "Iceland",
+    "result": "away"
+  },
+  {
+    "id": 8,
+    "Home": "Croatia",
+    "Away": "Nigeria",
+    "result": "draw"
+  },
+  {
+    "id": 9,
+    "Home": "Brazil",
+    "Away": "Switzerland",
+    "result": "home"
+  },
+  {
+    "id": 10,
+    "Home": "Costa Rica",
+    "Away": "Serbia",
+    "result": "draw"
+  },
+  {
+    "id": 11,
+    "Home": "Germany",
+    "Away": "Mexico",
+    "result": "away"
+  },
+  {
+    "id": 12,
+    "Home": "Sweden",
+    "Away": "Korea Republic",
+    "result": "away"
+  },
+  {
+    "id": 13,
+    "Home": "Belgium",
+    "Away": "Panama",
+    "result": "draw"
+  },
+  {
+    "id": 14,
+    "Home": "Tunisia",
+    "Away": "England",
+    "result": "home"
+  },
+  {
+    "id": 15,
+    "Home": "Poland",
+    "Away": "Senegal",
+    "result": "away"
+  },
+  {
+    "id": 16,
+    "Home": "Colombia",
+    "Away": "Japan",
+    "result": "draw"
+  },
+  {
+    "id": 17,
+    "Home": "Russia",
+    "Away": "Egypt",
+    "result": "home"
+  },
+  {
+    "id": 18,
+    "Home": "Uruguay",
+    "Away": "Saudi Arabia",
+    "result": "draw"
+  },
+  {
+    "id": 19,
+    "Home": "Portugal",
+    "Away": "Morocco",
+    "result": "away"
+  },
+  {
+    "id": 20,
+    "Home": "Iran",
+    "Away": "Spain",
+    "result": "away"
+  },
+  {
+    "id": 21,
+    "Home": "France",
+    "Away": "Peru",
+    "result": "draw"
+  },
+  {
+    "id": 22,
+    "Home": "Denmark",
+    "Away": "Australia",
+    "result": "home"
+  },
+  {
+    "id": 23,
+    "Home": "Argentina",
+    "Away": "Croatia",
+    "result": "away"
+  },
+  {
+    "id": 24,
+    "Home": "Nigeria",
+    "Away": "Iceland",
+    "result": "draw"
+  },
+  {
+    "id": 25,
+    "Home": "Brazil",
+    "Away": "Costa Rica",
+    "result": "home"
+  },
+  {
+    "id": 26,
+    "Home": "Serbia",
+    "Away": "Switzerland",
+    "result": "draw"
+  },
+  {
+    "id": 27,
+    "Home": "Germany",
+    "Away": "Sweden",
+    "result": "away"
+  },
+  {
+    "id": 28,
+    "Home": "Korea Republic",
+    "Away": "Mexico",
+    "result": "away"
+  },
+  {
+    "id": 29,
+    "Home": "Belgium",
+    "Away": "Tunisia",
+    "result": "draw"
+  },
+  {
+    "id": 30,
+    "Home": "England",
+    "Away": "Panama",
+    "result": "home"
+  },
+  {
+    "id": 31,
+    "Home": "Poland",
+    "Away": "Colombia",
+    "result": "away"
+  },
+  {
+    "id": 32,
+    "Home": "Japan",
+    "Away": "Senegal",
+    "result": "draw"
+  },
+  {
+    "id": 33,
+    "Home": "Uruguay",
+    "Away": "Russia",
+    "result": "home"
+  },
+  {
+    "id": 34,
+    "Home": "Saudi Arabia",
+    "Away": "Egypt",
+    "result": "draw"
+  },
+  {
+    "id": 35,
+    "Home": "Iran",
+    "Away": "Portugal",
+    "result": "away"
+  },
+  {
+    "id": 36,
+    "Home": "Spain",
+    "Away": "Morocco",
+    "result": "away"
+  },
+  {
+    "id": 37,
+    "Home": "Denmark",
+    "Away": "France",
+    "result": "draw"
+  },
+  {
+    "id": 38,
+    "Home": "Australia",
+    "Away": "Peru",
+    "result": "home"
+  },
+  {
+    "id": 39,
+    "Home": "Nigeria",
+    "Away": "Argentina",
+    "result": "away"
+  },
+  {
+    "id": 40,
+    "Home": "Iceland",
+    "Away": "Croatia",
+    "result": "draw"
+  },
+  {
+    "id": 41,
+    "Home": "Serbia",
+    "Away": "Brazil",
+    "result": "home"
+  },
+  {
+    "id": 42,
+    "Home": "Switzerland",
+    "Away": "Costa Rica",
+    "result": "draw"
+  },
+  {
+    "id": 43,
+    "Home": "Korea Republic",
+    "Away": "Germany",
+    "result": "away"
+  },
+  {
+    "id": 44,
+    "Home": "Mexico",
+    "Away": "Sweden",
+    "result": "away"
+  },
+  {
+    "id": 45,
+    "Home": "England",
+    "Away": "Belgium",
+    "result": "draw"
+  },
+  {
+    "id": 46,
+    "Home": "Panama",
+    "Away": "Tunisia",
+    "result": "home"
+  },
+  {
+    "id": 47,
+    "Home": "Japan",
+    "Away": "Poland",
+    "result": "away"
+  },
+  {
+    "id": 48,
+    "Home": "Senegal",
+    "Away": "Colombia",
+    "result": "draw"
+  }
+]
+
+}
+]
