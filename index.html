@@ -1,9 +1,66 @@
 <!DOCTYPE html>
 <html>
+
+        <title>MastroProde 2018</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+        body {font-family: "Lato", sans-serif}
+        .mySlides {display: none}
+
+
+
+#table-example-1 { 
+  border: solid thin; 
+  border-collapse: collapse; 
+}
+#table-example-1 caption { 
+  padding-bottom: 0.5em; 
+}
+#table-example-1 th, 
+#table-example-1 td { 
+  border: solid thin;
+  padding: 0.5rem 2rem;
+}
+#table-example-1 td {
+  white-space: nowrap;
+}
+#table-example-1 th { 
+  font-weight: normal; 
+}
+#table-example-1 td { 
+  border-style: none solid; 
+  vertical-align: top; 
+}
+#table-example-1 th { 
+  padding: 0.2em; 
+  vertical-align: middle; 
+  text-align: center; 
+}
+
+#table-example-1 tbody td:first-child::after { 
+  content: leader(". "); '
+}
+
+body {
+  padding: 1rem;
+}
+
+
+
+
+
+        </style>
+
+
+
 <head>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
-function myFunction() {
+function myFunctionInit() {
     document.getElementById("demo").innerHTML = "Paragraph changed.";
     //alert("aksjdklasjdk")
     //$.getJSON('https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json', function(data) {
@@ -91,6 +148,24 @@ var userList=[]
 
 }
 
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
+// When the user clicks anywhere outside of the modal, close it
+var modal = document.getElementById('ticketModal');
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
 function setUserPoints(predictions,allMatches){
     
     var points=0;
@@ -141,24 +216,153 @@ function showMatches(groupMatches,groupDiv){
     }
 }
 
+function dateView(){
 
+}
+function groupView(){
+    
+}
+
+<style>
+</style>
 </script>
 </head>
 
 <body>
 
+    <!-- Navbar -->
+<div class="w3-top">
+        <div class="w3-bar w3-black w3-card">
+          <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+          <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+          <a href="#position" class="w3-bar-item w3-button w3-padding-large w3-hide-small">POSICIONES</a>
+          <a href="#fixture" class="w3-bar-item w3-button w3-padding-large w3-hide-small">FIXTURE</a>
+          </div>
+          <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+        </div>
+      </div>
+      
+      <!-- Navbar on small screens -->
+      <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+        <a href="#positions" class="w3-bar-item w3-button w3-padding-large">POSICIONES</a>
+        <a href="#fixture" class="w3-bar-item w3-button w3-padding-large">FIXTURE</a>
+
+        
+      </div>
+      
+      <!-- Page content -->
+      <div class="w3-content" style="max-width:2000px;margin-top:46px">
+          
+        <!-- Automatic Slideshow Images -->
+        <!--<div class="mySlides w3-display-container w3-center">
+          <img src="/w3images/la.jpg" style="width:100%">
+          <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+            <h3>Los Angeles</h3>
+            <p><b>We had the best time playing at Venice Beach!</b></p>   
+          </div>
+        </div>
+        <div class="mySlides w3-display-container w3-center">
+          <img src="/w3images/ny.jpg" style="width:100%">
+          <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+            <h3>New York</h3>
+            <p><b>The atmosphere in New York is lorem ipsum.</b></p>    
+          </div>
+        </div>
+        <div class="mySlides w3-display-container w3-center">
+          <img src="/w3images/chicago.jpg" style="width:100%">
+          <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
+            <h3>Chicago</h3>
+            <p><b>Thank you, Chicago - A night we won't forget.</b></p>    
+          </div>
+        </div>-->
+      
+        <!-- POsitions Section -->
+        <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="position">
+          <h2 class="w3-wide" id="positionsTable">Tabla de Posiciones</h2>
+            <div>
+                <table class="table table-hover">
+      
+                      
+                </table>
+            </div>
+          
+          
+          
+        </div>
+      
+        <!-- FIXTURE Section -->
+        <div class="w3-black" id="fixture">
+          <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+            <h2 class="w3-wide w3-center" >Fixture</h2>
+            <div>
+                <button class="pure-button" onclick="dateView()">Por fecha</button>
+                <button class="pure-button"onclick="groupView()">Por grupo</button>
+                <div id="groupAMatchesDiv"></div>
+                <div id="groupBMatchesDiv"></div>
+                <div id="groupCMatchesDiv"></div>
+                <div id="groupDMatchesDiv"></div>
+                <div id="groupEMatchesDiv"></div>
+                <div id="groupFMatchesDiv"></div>
+                <div id="groupGMatchesDiv"></div>
+                <div id="groupHMatchesDiv"></div>
+                
+                <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+                    <div class="w3-half w3-margin-bottom">
+                      <div class="w3-container w3-white"id="groupAMatchesDiv">
+                        <p><b>Grupo A</b></p>
+                        <p class="w3-opacity">Fri 27 Nov 2016</p>
+                        <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
+                        <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
+                      </div>
+                    </div>
+                    <div class="w3-half w3-margin-bottom">
+                      <div class="w3-container w3-white"id="groupBMatchesDiv">
+                        <p><b>Grupo B</b></p>
+                        <p class="w3-opacity">Sat 28 Nov 2016</p>
+                        <p>Praesent tincidunt sed tellus ut rutrum sed vitae justo.</p>
+                        <button class="w3-button w3-black w3-margin-bottom" onclick="document.getElementById('ticketModal').style.display='block'">Buy Tickets</button>
+                      </div>
+                    </div>        
+                  </div>
+
+
+                
+            </div>
+            
+      
+            <ul class="w3-ul w3-border w3-white w3-text-grey">
+              <li class="w3-padding">September <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
+              <li class="w3-padding">October <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
+              <li class="w3-padding">November <span class="w3-badge w3-right w3-margin-right">3</span></li>
+            </ul>
+      
+            
+          </div>
+        </div>
+      
+        
+      
+       
+        
+      <!-- End Page Content -->
+      </div>
+      
+      <!-- Footer -->
+      <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+        <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+      </footer>
+
   
 <h1>A Web Page</h1>
 <div id="positionsTable"></div>
 <div id="user1Div"></div>
-<div id="groupAMatchesDiv"></div>
-<div id="groupBMatchesDiv"></div>
-<div id="groupCMatchesDiv"></div>
-<div id="groupDMatchesDiv"></div>
-<div id="groupEMatchesDiv"></div>
-<div id="groupFMatchesDiv"></div>
-<div id="groupGMatchesDiv"></div>
-<div id="groupHMatchesDiv"></div>
+
 <!--<div id="myList2"></div>
 		<script type="text/javascript">
 		var names = ['vitosh','academy','dot','com'];
@@ -174,7 +378,37 @@ function showMatches(groupMatches,groupDiv){
 <p>AAAAAAAAAAAAAAAAAA</p>
 <p id="demo">A Paragraph</p>
 <p id="demo2">A Paragraph</p>
-<button type="button" onclick="myFunction()">Try it</button>
+<button type="button" onclick="myFunctionInit()">Try it</button>
 
+<table id="table-example-1">
+<caption>Specification values: <b>Steel</b>, <b>Castings</b>,
+    Ann. A.S.T.M. A27-16, Class B;* P max. 0.06; S max. 0.05.</caption>
+    <thead><tr><th rowspan="2">Grade.</th>
+      <th rowspan="2">Yield Point.</th>
+      <th colspan="2">Ultimate tensile strength</th>
+      <th rowspan="2">Per cent elong. 50.8&nbsp;mm or&nbsp;2&nbsp;in.</th>
+      <th rowspan="2">Per cent reduct. area.</th>
+     </tr><tr><th>kg/mm<sup>2</sup></th>
+      <th>lb/in<sup>2</sup></th>
+     </tr></thead><tbody><tr><td>Hard</td>
+      <td>0.45 ultimate</td>
+      <td>56.2</td>
+      <td>80,000</td>
+      <td>15</td>
+      <td>20</td>
+     </tr><tr><td>Medium</td>
+      <td>0.45 ultimate</td>
+      <td>49.2</td>
+      <td>70,000</td>
+      <td>18</td>
+      <td>25</td>
+     </tr><tr><td>Soft</td>
+      <td>0.45 ultimate</td>
+      <td>42.2</td>
+      <td>60,000</td>
+      <td>22</td>
+      <td>30</td>
+     </tr></tbody></table>
 </body>
 </html>
+
