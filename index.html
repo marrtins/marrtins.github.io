@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -10,9 +11,6 @@
         <style>
         body {font-family: "Lato", sans-serif}
         .mySlides {display: none}
-
-
-
 table.topazCells {
   border: 2px solid #555555;
   background-color: #ffffff;
@@ -20,7 +18,6 @@ table.topazCells {
   border-collapse: collapse;
   table-layout: fixed;
   width: 100%;
-
 }
 table.topazCells td, table.topazCells th {
   border: 1px solid #555555;
@@ -36,7 +33,6 @@ table.topazCells tbody td {
 table.topazCells tr:nth-child(even) {
   background: rgb(196, 196, 196);
 }
-
 table.topazCells tfoot td {
   font-size: 10px;
 }
@@ -56,22 +52,26 @@ table.topazCells winner {
 table.topazCells loser {
   background: rgb(255, 0, 0);
 }
-
         </style>
 
 
+    <head>
+            <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <title>Test</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="text/javascript">
+        function codeAddress() {
+            
+            myFunctionInit();
+        }
 
-<head>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>
-function myFunctionInit() {
+
+        function myFunctionInit() {
     document.getElementById("demo").innerHTML = "Paragraph changed.";
     //alert("aksjdklasjdk")
     //$.getJSON('https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json', function(data) {
     $.getJSON('https://raw.githubusercontent.com/marrtins/datapr/master/getData.json', function(data) {//document.getElementById("demo2").innerHTML = data.groups.a.matches[5].name;
-
     var teams = data.teams;
-
     groupAMatches=parseMatches(data.groups.a.matches,teams);
     groupBMatches=parseMatches(data.groups.b.matches,teams);
     groupCMatches=parseMatches(data.groups.c.matches,teams);
@@ -88,22 +88,21 @@ function myFunctionInit() {
     showMatches(groupFMatches,'groupFMatchesDiv');
     showMatches(groupGMatches,'groupGMatchesDiv');
     showMatches(groupHMatches,'groupHMatchesDiv');*/
-
     allMatches=groupAMatches.concat(groupBMatches,groupCMatches,groupDMatches,groupEMatches,groupFMatches,groupGMatches,groupHMatches)
     allMatches.sort(function matchSort(a,b){
         return b.id < a.id? 1 
             :b.id>a.id?-1
             : 0;
     });
-
 });
-
   $.getJSON("https://raw.githubusercontent.com/marrtins/datapr/master/fulldata.json", function(predctionData){
-
     userData=parseUserData(predctionData,allMatches);
-
+    var x2 = document.getElementById("tablapiola").getElementsByTagName("td");
+    x3 = document.getElementById("tablapiola").getElementsByTagName("td");
+    fillCells(userData);
+    colorCells(userData,allMatches);
+    
     pointsTable=setPointsTable(userData);
-
     var list = document.createElement('ul');
       document.getElementById("positionsTable").appendChild(list);
       for (var i = 0; i < pointsTable.length; i++) {
@@ -111,11 +110,63 @@ function myFunctionInit() {
           item.appendChild(document.createTextNode(pointsTable[i].username+" "+pointsTable[i].points));
           list.appendChild(item);
       }
-
   });
+  
+  
+  
+}
+function fillCells(userData){
+    idAux="";
+    o=0;
+    for(var i=0;i<userData.length;i++){
+        predictions=userData[i].predictions
+        while(o<47){
+            winnerTeam = predictions[o].result;
+            idAux=o.toString()+"."+i.toString();
+            if(document.getElementById(idAux)!=null){
+                document.getElementById(idAux).innerHTML=winnerTeam;
+            }
+            o++;
+        }
+        o=0;
+    }
+}
+function colorCells(userData,allMatches){
+    document.getElementById("test3").innerHTML="hola";
+    //document.getElementById("test4").style.backgroundColor="lightblue";
+    document.getElementById("test3").innerHTML=document.getElementById("test3").innerHTML+"asdasd";
+
+   celdas = document.getElementById("tablapiola");
+
+    idAux="";
+    o=0;
+    for(var i=0;i<allMatches.length;i++){
+        teamWinner = allMatches[i].winnerName;
+        if(teamWinner != null)
+        {
+            resultCell = "res"+i.toString();
+            if(document.getElementById(resultCell)!=null){
+                document.getElementById(resultCell).innerHTML=teamWinner;
+            }
+        }
+        while(o<7){
+            idAux=i.toString()+"."+o.toString();
+            
+            if(document.getElementById(idAux)!=null){
+                if(document.getElementById(idAux).innerHTML==teamWinner)
+                document.getElementById(idAux).style.backgroundColor="lightblue";
+            }
+            
+                o++
+        }
+        o=0;
+        if(allMatches[i].finished){
+
+        }
+    }
+
 
 }
-
 function setPointsTable(userData){
     userpointsList=[];
     for(var i =0;i<userData.length;i++){
@@ -129,16 +180,10 @@ function setPointsTable(userData){
             :b.id<a.id?-1
             : 0;
     });
-
     return userpointsList;
-
-
 }
-
 function parseUserData(data,allMatches){
-
 var userList=[]
-
    for(var i = 0;i<data.length;i++){
         user = new Object();
         user.username = data[i].username;
@@ -147,11 +192,8 @@ var userList=[]
         userList.push(user);
     }
     document.getElementById("demo2").innerHTML = "user"+i+"points "+userList[0].points+" "+userList[1].points;
-
     return userList;
-
 }
-
 // Used to toggle the menu on small screens when clicking on the menu button
 function myFunction() {
     var x = document.getElementById("navDemo");
@@ -161,7 +203,6 @@ function myFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
-
 // When the user clicks anywhere outside of the modal, close it
 var modal = document.getElementById('ticketModal');
 window.onclick = function(event) {
@@ -169,7 +210,6 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
-
 function setUserPoints(predictions,allMatches){
     
     var points=0;
@@ -182,7 +222,6 @@ function setUserPoints(predictions,allMatches){
     return points;
     
 }
-
 function parseMatches(groupMatches,teams){
     var matchList=[];
     for(var i = 0;i<groupMatches.length;i++){
@@ -197,10 +236,13 @@ function parseMatches(groupMatches,teams){
         if(match.finished){
             if(groupMatches[i].home_result > groupMatches[i].away_result ){
                 match.winner=  "home";
+                match.winnerName=teams[match.home_team_id-1].fifaCode;
             }else if(groupMatches[i].home_result < groupMatches[i].away_result ){
                 match.winner="away";
+                match.winnerName=teams[match.away_team_id-1].fifaCode;
             }else{
                 match.winner="draw";
+                match.winnerName="EMP";
             }
         }else{
             match.winner=null;
@@ -209,7 +251,6 @@ function parseMatches(groupMatches,teams){
     }
     return matchList;  
 }
-
 function showMatches(groupMatches,groupDiv){
     var list = document.createElement('ul');
     document.getElementById(groupDiv).appendChild(list);
@@ -219,394 +260,732 @@ function showMatches(groupMatches,groupDiv){
         list.appendChild(item);
     }
 }
-
 function dateView(){
-
 }
 function groupView(){
     
 }
 
-<style>
-</style>
-</script>
-</head>
 
+
+
+
+
+
+
+
+        window.onload = codeAddress;
+        </script>
+    </head>
 <body>
-
-    <!-- Navbar -->
-<div class="w3-top">
-        <div class="w3-bar w3-black w3-card">
-          <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-          <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
-          <a href="#position" class="w3-bar-item w3-button w3-padding-large w3-hide-small">POSICIONES</a>
-          <a href="#fixture" class="w3-bar-item w3-button w3-padding-large w3-hide-small">FIXTURE</a>
-          </div>
-          <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
-        </div>
+   <!-- Navbar -->
+   <div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+      <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+      <a href="#position" class="w3-bar-item w3-button w3-padding-large w3-hide-small">POSICIONES</a>
+      <a href="#fixture" class="w3-bar-item w3-button w3-padding-large w3-hide-small">FIXTURE</a>
       </div>
-      
-      <!-- Navbar on small screens -->
-      <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-        <a href="#positions" class="w3-bar-item w3-button w3-padding-large">POSICIONES</a>
-        <a href="#fixture" class="w3-bar-item w3-button w3-padding-large">FIXTURE</a>
+      <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+    </div>
+  </div>
+  
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+    <a href="#positions" class="w3-bar-item w3-button w3-padding-large">POSICIONES</a>
+    <a href="#fixture" class="w3-bar-item w3-button w3-padding-large">FIXTURE</a>
 
-        
-      </div>
-      
-      <!-- Page content -->
-      <div class="w3-content" style="max-width:2000px;margin-top:46px">
-          
-        <!-- Automatic Slideshow Images -->
-        <!--<div class="mySlides w3-display-container w3-center">
-          <img src="/w3images/la.jpg" style="width:100%">
-          <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-            <h3>Los Angeles</h3>
-            <p><b>We had the best time playing at Venice Beach!</b></p>   
-          </div>
-        </div>
-        <div class="mySlides w3-display-container w3-center">
-          <img src="/w3images/ny.jpg" style="width:100%">
-          <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-            <h3>New York</h3>
-            <p><b>The atmosphere in New York is lorem ipsum.</b></p>    
-          </div>
-        </div>
-        <div class="mySlides w3-display-container w3-center">
-          <img src="/w3images/chicago.jpg" style="width:100%">
-          <div class="w3-display-bottommiddle w3-container w3-text-white w3-padding-32 w3-hide-small">
-            <h3>Chicago</h3>
-            <p><b>Thank you, Chicago - A night we won't forget.</b></p>    
-          </div>
-        </div>-->
-        <!-- POsitions Section -->
-        <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="position">
-          <h2 class="w3-wide" id="positionsTable">Tabla de Posiciones</h2>
-            <div>
-		          <img src="https://thumbs.gfycat.com/WearyClutteredAmericanredsquirrel-max-1mb.gif"  />
+    
+  </div>
+  
+  <!-- Page content -->
+  <div class="w3-content" style="max-width:2000px;margin-top:46px">
+    
+   
+    <!-- POsitions Section -->
+    <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="position">
+      <h2 class="w3-wide" id="positionsTable">Tabla de Posiciones</h2>
+        <div>
+              <img src="https://thumbs.gfycat.com/WearyClutteredAmericanredsquirrel-max-1mb.gif"  />
 
-                <table class="table table-hover">
-      
-                            <img src="https://thumbs.gfycat.com/WearyClutteredAmericanredsquirrel-max-1mb.gif"  />
+            <table class="table table-hover">
+  
+             <img src="https://thumbs.gfycat.com/WearyClutteredAmericanredsquirrel-max-1mb.gif"  />
+             <div id="test3">AAAAAAAAAAAAAAAAAAAA</div>
 
-                </table>
-            </div>
-          
-          
-          
+            </table>
         </div>
       
-        <!-- FIXTURE Section -->
-        <div class="w3-black" id="fixture">
-          <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
-            <h2 class="w3-wide w3-center" >Fixture</h2>
-            <div>
-                <button class="pure-button" onclick="dateView()">Por fecha</button>
-                <button class="pure-button"onclick="groupView()">Por grupo</button>
-                <div ></div>
-                <div id="groupBMatchesDiv"></div>
-                <div id="groupCMatchesDiv"></div>
-                <div id="groupDMatchesDiv"></div>
-                <div id="groupEMatchesDiv"></div>
-                <div id="groupFMatchesDiv"></div>
-                <div id="groupGMatchesDiv"></div>
-                <div id="groupHMatchesDiv"></div>
-                
-                <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
-                    <div class="w3-half w3-margin-bottom">
-                      <div class="w3-container w3-white"id="groupAMatchesDiv">
-                        <p><b>Grupo A</b></p>
+      
+      
+    </div>
+  
+    <!-- FIXTURE Section -->
+    <div class="w3-black" id="fixture">
+      <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
+        <h2 class="w3-wide w3-center" >Fixture</h2>
+        <div>
+            <button class="pure-button" onclick="dateView()">Por fecha</button>
+            <button class="pure-button"onclick="groupView()">Por grupo</button>
+            <div ></div>
+            <div id="groupBMatchesDiv"></div>
+            <div id="groupCMatchesDiv"></div>
+            <div id="groupDMatchesDiv"></div>
+            <div id="groupEMatchesDiv"></div>
+            <div id="groupFMatchesDiv"></div>
+            <div id="groupGMatchesDiv"></div>
+            <div id="groupHMatchesDiv"></div>
+            
+            <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
+                <div class="w3-half w3-margin-bottom">
+                  <div class="w3-container w3-white"id="groupAMatchesDiv">
+                    <p><b>Grupo A</b></p>
+                    <table class="topazCells" id="tablapiola">
+                            <col width="60">
+                            <thead>
+                            <th>Usuario</th>
+                              <th>RUS ARA  </th>
+                              <th>EGY URU </th>
+                              <th>RUS EGI </th>
+                              <th>URU ARA </th>
+                              <th>ARA EGI </th>
+                              <th>URU RUS </th>
+                             </tr></thead>    
+                        <tbody>
+                            <tr>
+                            <td>User1</td>
+                            <td id="0.0">RUS</td>
+                            <td id="1.0">URU</td>
+                            <td id="16.0">RUS</td>
+                            <td id="17.0">KSA</td>
+                            <td id="32.0">URU</td>
+                            <td id="33.0">EGY</td>
+                            </tr>
+                            <tr>
+                            <td>Usuario2</td>
+                            <td id="0.1">RUS</td>
+                            <td id="1.1">URU</td>
+                            <td id="16.1"></td>
+                            <td id="17.1"></td>
+                            <td id="32.1"></td>
+                            <td id="33.1"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario3</td>
+                            <td id="0.2"></td>
+                            <td id="1.2"></td>
+                            <td id="16.2"></td>
+                            <td id="17.2"></td>
+                            <td id="32.2"></td>
+                            <td id="33.2"></td>
+                            
+                            </tr>
+                            <tr>
+                            <td>Usuario4</td>
+                            <td id="0.3"></td>
+                            <td id="1.3"></td>
+                            <td id="16.3"></td>
+                            <td id="17.3"></td>
+                            <td id="32.3"></td>
+                            <td id="33.3"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario5</td>
+                            <td id="0.4"></td>
+                            <td id="1.4"></td>
+                            <td id="16.4"></td>
+                            <td id="17.4"></td>
+                            <td id="32.4"></td>
+                            <td id="33.4"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario6</td>
+                            <td id="0.5"></td>
+                            <td id="1.5"></td>
+                            <td id="16.5"></td>
+                            <td id="17.5"></td>
+                            <td id="32.5"></td>
+                            <td id="33.5"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario7</td>
+                            <td id="0.6"></td>
+                            <td id="1.6"></td>
+                            <td id="16.6"></td>
+                            <td id="17.6"></td>
+                            <td id="32.6"></td>
+                            <td id="33.6"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario8</td>
+                            <td id="0.7"></td>
+                            <td id="1.7"></td>
+                            <td id="16.7"></td>
+                            <td id="17.7"></td>
+                            <td id="32.7"></td>
+                            <td id="33.7"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario9</td>
+                            <td id="0.8"></td>
+                            <td id="1.8"></td>
+                            <td id="16.8"></td>
+                            <td id="17.8"></td>
+                            <td id="32.8"></td>
+                            <td id="33.8"></td>
+                            
+                            </tr>      
+                            <tr>
+                            <td>RES</td>
+                            <td id="res0"> </td>
+                            <td id="res1"> </td>
+                            <td id="res16"> </td>
+                            <td id="res17"> </td>
+                            <td id="res32"> </td>
+                            <td id="res33"></td>
+                            </tr>                        
+                            
+                            </tbody>
+                            </table>
+                    <br>
+                  </div>
+                </div>
+                <div class="w3-half w3-margin-bottom">
+                  <div class="w3-container w3-white"id="groupBMatchesDiv">
+                    <p><b>Grupo B</b></p>
+                    <table class="topazCells">
+                            <col width="60">
+                            <thead>
+                            <th>Usuario</th>
+                              <th>POR ESP</th>
+                              <th>MAR IRA</th>
+                              <th>POR MAR</th>
+                              <th>IRA ESP</th>
+                              <th>IRA POR</th>
+                              <th>ESP MAR</th>
+                             </tr></thead>    
+                        <tbody>
+                            <tr>
+                            <td>User1</td>
+                            <td id="2.0"></td>
+                            <td id="3.0"></td>
+                            <td id="18.0"></td>
+                            <td id="19.0"></td>
+                            <td id="34.0"></td>
+                            <td id="35.0"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario2</td>
+                            <td id="2.1"></td>
+                            <td id="3.1"></td>
+                            <td id="18.1"></td>
+                            <td id="19.1"></td>
+                            <td id="34.1"></td>
+                            <td id="35.1"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario3</td>
+                            <td id="2.2"></td>
+                            <td id="3.2"></td>
+                            <td id="18.2"></td>
+                            <td id="19.2"></td>
+                            <td id="34.2"></td>
+                            <td id="35.2"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario4</td>
+                            <td id="2.3"></td>
+                            <td id="3.3"></td>
+                            <td id="18.3"></td>
+                            <td id="19.3"></td>
+                            <td id="34.3"></td>
+                            <td id="35.3"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario5</td>
+                            <td id="2.4"></td>
+                            <td id="3.4"></td>
+                            <td id="18.4"></td>
+                            <td id="19.4"></td>
+                            <td id="34.4"></td>
+                            <td id="35.4"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario6</td>
+                            <td id="2.5"></td>
+                            <td id="3.5"></td>
+                            <td id="18.5"></td>
+                            <td id="19.5"></td>
+                            <td id="34.5"></td>
+                            <td id="35.5"></td>
+                            </tr>
+                             <tr>
+                            <td>Usuario7</td>
+                            <td id="2.6"></td>
+                            <td id="3.6"></td>
+                            <td id="18.6"></td>
+                            <td id="19.6"></td>
+                            <td id="34.6"></td>
+                            <td id="35.6"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario8</td>
+                            <td id="2.7"></td>
+                            <td id="3.7"></td>
+                            <td id="18.7"></td>
+                            <td id="19.7"></td>
+                            <td id="34.7"></td>
+                            <td id="35.7"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario9</td>
+                            <td id="2.8"></td>
+                            <td id="3.8"></td>
+                            <td id="18.8"></td>
+                            <td id="19.8"></td>
+                            <td id="34.8"></td>
+                            <td id="35.8"></td>
+                            </tr>  
+                            <td>RES</td>
+                            <td id="res2"> </td>
+                            <td id="res3"> </td>
+                            <td id="res18"> </td>
+                            <td id="res19"> </td>
+                            <td id="res34"> </td>
+                            <td id="res35"></td>
+                            </tbody>
+                            </table>
+                    <br>
+                  </div>                   
+                </div>        
+              </div>
+              
+              <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">    
+                <div class="w3-half w3-margin-bottom">
+                      <div class="w3-container w3-white"id="groupCMatchesDiv">
+                        <p><b>Grupo C</b></p>
                         <table class="topazCells">
                                 <col width="60">
                                 <thead>
                                 <th>Usuario</th>
-                                  <th>RUS ARA</th>
-                                  <th>EGY URU</th>
-                                  <th>RUS EGI</th>
-                                  <th>URU ARA</th>
-                                  <th>ARA EGI</th>
-                                  <th>URU RUS</th>
+                                  <th>FRA AUS</th>
+                                  <th>PER DIN</th>
+                                  <th>FRA PER</th>
+                                  <th>DIN AUS</th>
+                                  <th>DIN FRA</th>
+                                  <th>AUS PER</th>
                                  </tr></thead>    
                             <tbody>
                                 <tr>
                                 <td>User1</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="4.0"></td>
+                                <td id="5.0"></td>
+                                <td id="20.0"></td>
+                                <td id="21.0"></td>
+                                <td id="36.0"></td>
+                                <td id="37.0"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario2</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="4.1"></td>
+                                <td id="5.1"></td>
+                                <td id="20.1"></td>
+                                <td id="21.1"></td>
+                                <td id="36.1"></td>
+                                <td id="37.1"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario3</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="4.2"></td>
+                                <td id="5.2"></td>
+                                <td id="20.2"></td>
+                                <td id="21.2"></td>
+                                <td id="36.2"></td>
+                                <td id="37.2"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario4</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="4.3"></td>
+                                <td id="5.3"></td>
+                                <td id="20.3"></td>
+                                <td id="21.3"></td>
+                                <td id="36.3"></td>
+                                <td id="37.3"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario5</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="4.4"></td>
+                                <td id="5.4"></td>
+                                <td id="20.4"></td>
+                                <td id="21.4"></td>
+                                <td id="36.4"></td>
+                                <td id="37.4"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario6</td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td></td>
+                                <td id="4.5"></td>
+                                <td id="5.5"></td>
+                                <td id="20.5"></td>
+                                <td id="21.5"></td>
+                                <td id="36.5"></td>
+                                <td id="37.5"></td>
                                 </tr>
+                            <tr>
+                            <td>Usuario7</td>
+                            <td id="4.6"></td>
+                                <td id="5.6"></td>
+                                <td id="20.6"></td>
+                                <td id="21.6"></td>
+                                <td id="36.6"></td>
+                                <td id="37.6"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario8</td>
+                            <td id="4.7"></td>
+                                <td id="5.7"></td>
+                                <td id="20.7"></td>
+                                <td id="21.7"></td>
+                                <td id="36.7"></td>
+                                <td id="37.7"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario9</td>
+                            <td id="4.8"></td>
+                                <td id="5.8"></td>
+                                <td id="20.8"></td>
+                                <td id="21.8"></td>
+                                <td id="36.8"></td>
+                                <td id="37.8"></td>
+                            </tr>  <td>RES</td>
+                            <td id="res4"> </td>
+                            <td id="res5"> </td>
+                            <td id="res20"> </td>
+                            <td id="res21"> </td>
+                            <td id="res36"> </td>
+                            <td id="res37"></td>
                                 </tbody>
                                 </table>
                         <br>
                       </div>
                     </div>
                     <div class="w3-half w3-margin-bottom">
-                      <div class="w3-container w3-white"id="groupBMatchesDiv">
-                        <p><b>Grupo B</b></p>
+                      <div class="w3-container w3-white"id="groupDMatchesDiv">
+                        <p><b>Grupo D</b></p>
                         <table class="topazCells">
                                 <col width="60">
                                 <thead>
                                 <th>Usuario</th>
-                                  <th>RUS ARA</th>
-                                  <th>EGY URU</th>
-                                  <th>RUS EGI</th>
-                                  <th>URU ARA</th>
-                                  <th>ARA EGI</th>
-                                  <th>URU RUS</th>
+                                  <th>ARG ISL</th>
+                                  <th>CRO NIG</th>
+                                  <th>ARG CRO</th>
+                                  <th>NIG ISL</th>
+                                  <th>NIG ARG</th>
+                                  <th>ISL CRO</th>
                                  </tr></thead>    
                             <tbody>
                                 <tr>
                                 <td>User1</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="6.0"></td>
+                                <td id="7.0"></td>
+                                <td id="22.0"></td>
+                                <td id="23.0"></td>
+                                <td id="38.0"></td>
+                                <td id="39.0"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario2</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="6.1"></td>
+                                <td id="7.1"></td>
+                                <td id="22.1"></td>
+                                <td id="23.1"></td>
+                                <td id="38.1"></td>
+                                <td id="39.1"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario3</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="6.2"></td>
+                                <td id="7.2"></td>
+                                <td id="22.2"></td>
+                                <td id="23.2"></td>
+                                <td id="38.2"></td>
+                                <td id="39.2"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario4</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="6.3"></td>
+                                <td id="7.3"></td>
+                                <td id="22.3"></td>
+                                <td id="23.3"></td>
+                                <td id="38.3"></td>
+                                <td id="39.3"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario5</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="6.4"></td>
+                                <td id="7.4"></td>
+                                <td id="22.4"></td>
+                                <td id="23.4"></td>
+                                <td id="38.4"></td>
+                                <td id="39.4"></td>
                                 </tr>
                                 <tr>
                                 <td>Usuario6</td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td></td>
+                                <td id="6.5"></td>
+                                <td id="7.5"></td>
+                                <td id="22.5"></td>
+                                <td id="23.5"></td>
+                                <td id="38.5"></td>
+                                <td id="39.5"></td>
                                 </tr>
+                            <tr>
+                            <td>Usuario7</td>
+                            <td id="6.6"></td>
+                            <td id="7.6"></td>
+                            <td id="22.6"></td>
+                            <td id="23.6"></td>
+                            <td id="38.6"></td>
+                            <td id="39.6"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario8</td>
+                            <td id="6.7"></td>
+                            <td id="7.7"></td>
+                            <td id="22.7"></td>
+                            <td id="23.7"></td>
+                            <td id="38.7"></td>
+                            <td id="39.7"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario9</td>
+                            <td id="6.8"></td>
+                                <td id="7.8"></td>
+                                <td id="22.8"></td>
+                                <td id="23.8"></td>
+                                <td id="38.8"></td>
+                                <td id="39.8"></td>
+                            </tr><td>RES</td>
+                            <td id="res6"> </td>
+                            <td id="res7"> </td>
+                            <td id="res22"> </td>
+                            <td id="res23"> </td>
+                            <td id="res38"> </td>
+                            <td id="res39"></td>  
                                 </tbody>
                                 </table>
                         <br>
                       </div>                   
                     </div>        
                   </div>
-                  
-                  <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">    
-                    <div class="w3-half w3-margin-bottom">
-                          <div class="w3-container w3-white"id="groupCMatchesDiv">
-                            <p><b>Grupo C</b></p>
+                  <div class="w3-row-padding w3-padding-32" style="margin: -16px">
+                        <div class="w3-half w3-margin-bottom">
+                          <div class="w3-container w3-white"id="groupEMatchesDiv">
+                            <p><b>Grupo E</b></p>
                             <table class="topazCells">
                                     <col width="60">
                                     <thead>
                                     <th>Usuario</th>
-                                      <th>RUS ARA</th>
-                                      <th>EGY URU</th>
-                                      <th>RUS EGI</th>
-                                      <th>URU ARA</th>
-                                      <th>ARA EGI</th>
-                                      <th>URU RUS</th>
+                                      <th>BRA SUI</th>
+                                      <th>CRC SER</th>
+                                      <th>BRA CRC</th>
+                                      <th>SER ARA</th>
+                                      <th>SER BRA</th>
+                                      <th>SUI CRC</th>
                                      </tr></thead>    
                                 <tbody>
                                     <tr>
                                     <td>User1</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="8.0"></td>
+                                    <td id="9.0"></td>
+                                    <td id="24.0"></td>
+                                    <td id="25.0"></td>
+                                    <td id="40.0"></td>
+                                    <td id="41.0"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario2</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="8.1"></td>
+                                    <td id="9.1"></td>
+                                    <td id="24.1"></td>
+                                    <td id="25.1"></td>
+                                    <td id="40.1"></td>
+                                    <td id="41.1"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario3</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="8.2"></td>
+                                    <td id="9.2"></td>
+                                    <td id="24.2"></td>
+                                    <td id="25.2"></td>
+                                    <td id="40.2"></td>
+                                    <td id="41.2"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario4</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="8.3"></td>
+                                    <td id="9.3"></td>
+                                    <td id="24.3"></td>
+                                    <td id="25.3"></td>
+                                    <td id="40.3"></td>
+                                    <td id="41.3"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario5</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="8.4"></td>
+                                    <td id="9.4"></td>
+                                    <td id="24.4"></td>
+                                    <td id="25.4"></td>
+                                    <td id="40.4"></td>
+                                    <td id="41.4"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario6</td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td></td>
+                                    <td id="8.5"></td>
+                                    <td id="9.5"></td>
+                                    <td id="24.5"></td>
+                                    <td id="25.5"></td>
+                                    <td id="40.5"></td>
+                                    <td id="41.5"></td>
                                     </tr>
+                            <tr>
+                            <td>Usuario7</td>
+                            <td id="8.5"></td>
+                                    <td id="9.5"></td>
+                                    <td id="24.5"></td>
+                                    <td id="25.5"></td>
+                                    <td id="40.5"></td>
+                                    <td id="41.5"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario8</td>
+                            <td id="8.6"></td>
+                                    <td id="9.6"></td>
+                                    <td id="24.6"></td>
+                                    <td id="25.6"></td>
+                                    <td id="40.6"></td>
+                                    <td id="41.6"></td>
+                            </tr>
+                            <tr>
+                            <td>Usuario9</td>
+                            <td id="8.7"></td>
+                                    <td id="9.7"></td>
+                                    <td id="24.7"></td>
+                                    <td id="25.7"></td>
+                                    <td id="40.7"></td>
+                                    <td id="41.7"></td>
+                            </tr> <td>RES</td>
+                            <td id="res8"> </td>
+                            <td id="res9"> </td>
+                            <td id="res24"> </td>
+                            <td id="res25"> </td>
+                            <td id="res40"> </td>
+                            <td id="res41"></td>                                     
                                     </tbody>
                                     </table>
                             <br>
                           </div>
                         </div>
                         <div class="w3-half w3-margin-bottom">
-                          <div class="w3-container w3-white"id="groupDMatchesDiv">
-                            <p><b>Grupo D</b></p>
+                          <div class="w3-container w3-white"id="groupFMatchesDiv">
+                            <p><b>Grupo F</b></p>
                             <table class="topazCells">
                                     <col width="60">
                                     <thead>
                                     <th>Usuario</th>
-                                      <th>RUS ARA</th>
-                                      <th>EGY URU</th>
-                                      <th>RUS EGI</th>
-                                      <th>URU ARA</th>
-                                      <th>ARA EGI</th>
-                                      <th>URU RUS</th>
+                                      <th>ALE MEX</th>
+                                      <th>SUE COR</th>
+                                      <th>ALE SUE</th>
+                                      <th>COR MEX</th>
+                                      <th>COR ALE</th>
+                                      <th>MEX SUE</th>
                                      </tr></thead>    
                                 <tbody>
                                     <tr>
                                     <td>User1</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="10.0"></td>
+                                    <td id="11.0"></td>
+                                    <td id="26.0"></td>
+                                    <td id="27.0"></td>
+                                    <td id="42.0"></td>
+                                    <td id="43.0"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario2</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="10.1"></td>
+                                    <td id="11.1"></td>
+                                    <td id="26.1"></td>
+                                    <td id="27.1"></td>
+                                    <td id="42.1"></td>
+                                    <td id="43.1"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario3</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="10.2"></td>
+                                    <td id="11.2"></td>
+                                    <td id="26.2"></td>
+                                    <td id="27.2"></td>
+                                    <td id="42.2"></td>
+                                    <td id="43.2"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario4</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="10.3"></td>
+                                    <td id="11.3"></td>
+                                    <td id="26.3"></td>
+                                    <td id="27.3"></td>
+                                    <td id="42.3"></td>
+                                    <td id="43.3"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario5</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td id="10.4"></td>
+                                    <td id="11.4"></td>
+                                    <td id="26.4"></td>
+                                    <td id="27.4"></td>
+                                    <td id="42.4"></td>
+                                    <td id="43.4"></td>
                                     </tr>
                                     <tr>
                                     <td>Usuario6</td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td> </td>
-                                    <td></td>
+                                    <td id="10.5"></td>
+                                    <td id="11.5"></td>
+                                    <td id="26.5"></td>
+                                    <td id="27.5"></td>
+                                    <td id="42.5"></td>
+                                    <td id="43.5"></td>
                                     </tr>
+                                    <tr>
+                                            <td>Usuario7</td>
+                                    <td id="10.6"></td>
+                                    <td id="11.6"></td>
+                                    <td id="26.6"></td>
+                                    <td id="27.6"></td>
+                                    <td id="42.6"></td>
+                                    <td id="43.6"></td>
+                                            </tr>
+                                            <tr>
+                                            <td>Usuario8</td>
+                                    <td id="10.7"></td>
+                                    <td id="11.7"></td>
+                                    <td id="26.7"></td>
+                                    <td id="27.7"></td>
+                                    <td id="42.7"></td>
+                                    <td id="43.7"></td>
+                                            </tr>
+                                            <tr>
+                                            <td>Usuario9</td>
+                                    <td id="10.8"></td>
+                                    <td id="11.8"></td>
+                                    <td id="26.8"></td>
+                                    <td id="27.8"></td>
+                                    <td id="42.8"></td>
+                                    <td id="43.8"></td>
+                                            </tr> <td>RES</td>
+                                            <td id="res10"> </td>
+                                            <td id="res11"> </td>
+                                            <td id="res26"> </td>
+                                            <td id="res27"> </td>
+                                            <td id="res42"> </td>
+                                            <td id="res43"></td>                                     
                                     </tbody>
                                     </table>
                             <br>
@@ -615,355 +994,271 @@ function groupView(){
                       </div>
                       <div class="w3-row-padding w3-padding-32" style="margin: -16px">
                             <div class="w3-half w3-margin-bottom">
-                              <div class="w3-container w3-white"id="groupEMatchesDiv">
-                                <p><b>Grupo E</b></p>
+                              <div class="w3-container w3-white"id="groupGMatchesDiv">
+                                <p><b>Grupo G</b></p>
                                 <table class="topazCells">
                                         <col width="60">
                                         <thead>
                                         <th>Usuario</th>
-                                          <th>RUS ARA</th>
-                                          <th>EGY URU</th>
-                                          <th>RUS EGI</th>
-                                          <th>URU ARA</th>
-                                          <th>ARA EGI</th>
-                                          <th>URU RUS</th>
+                                          <th>BEL PAN</th>
+                                          <th>TUN ING</th>
+                                          <th>BEL TUN</th>
+                                          <th>ING PAN</th>
+                                          <th>ING BEL</th>
+                                          <th>PAN TUN</th>
                                          </tr></thead>    
                                     <tbody>
                                         <tr>
                                         <td>User1</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="12.0"></td>
+                                        <td id="13.0"></td>
+                                        <td id="28.0"></td>
+                                        <td id="29.0"></td>
+                                        <td id="44.0"></td>
+                                        <td id="45.0"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario2</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="12.1"></td>
+                                        <td id="13.1"></td>
+                                        <td id="28.1"></td>
+                                        <td id="29.1"></td>
+                                        <td id="44.1"></td>
+                                        <td id="45.1"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario3</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="12.2"></td>
+                                        <td id="13.2"></td>
+                                        <td id="28.2"></td>
+                                        <td id="29.2"></td>
+                                        <td id="44.2"></td>
+                                        <td id="45.2"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario4</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="12.3"></td>
+                                        <td id="13.3"></td>
+                                        <td id="28.3"></td>
+                                        <td id="29.3"></td>
+                                        <td id="44.3"></td>
+                                        <td id="45.3"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario5</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="12.4"></td>
+                                        <td id="13.4"></td>
+                                        <td id="28.4"></td>
+                                        <td id="29.4"></td>
+                                        <td id="44.4"></td>
+                                        <td id="45.4"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario6</td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td></td>
+                                        <td id="12.5"></td>
+                                        <td id="13.5"></td>
+                                        <td id="28.5"></td>
+                                        <td id="29.5"></td>
+                                        <td id="44.5"></td>
+                                        <td id="45.5"></td>
                                         </tr>
+                                        <tr>
+                                                <td>Usuario7</td>
+                                                <td id="12.6"></td>
+                                                <td id="13.6"></td>
+                                                <td id="28.6"></td>
+                                                <td id="29.6"></td>
+                                                <td id="44.6"></td>
+                                                <td id="45.6"></td>
+                                                </tr>
+                                                <tr>
+                                                <td>Usuario8</td>
+                                                <td id="12.6"></td>
+                                        <td id="13.6"></td>
+                                        <td id="28.6"></td>
+                                        <td id="29.6"></td>
+                                        <td id="44.6"></td>
+                                        <td id="45.6"></td>
+                                                </tr>
+                                                <tr>
+                                                <td>Usuario9</td>
+                                                <td id="12.7"></td>
+                                        <td id="13.7"></td>
+                                        <td id="28.7"></td>
+                                        <td id="29.7"></td>
+                                        <td id="44.7"></td>
+                                        <td id="45.7"></td>
+                                                </tr>   <td>RES</td>
+                                                <td id="res12"> </td>
+                                                <td id="res13"> </td>
+                                                <td id="res28"> </td>
+                                                <td id="res29"> </td>
+                                                <td id="res44"> </td>
+                                                <td id="res45"></td>                                      
                                         </tbody>
                                         </table>
                                 <br>
                               </div>
                             </div>
                             <div class="w3-half w3-margin-bottom">
-                              <div class="w3-container w3-white"id="groupFMatchesDiv">
-                                <p><b>Grupo F</b></p>
+                              <div class="w3-container w3-white"id="groupHMatchesDiv">
+                                <p><b>Grupo H</b></p>
                                 <table class="topazCells">
                                         <col width="60">
                                         <thead>
                                         <th>Usuario</th>
-                                          <th>RUS ARA</th>
-                                          <th>EGY URU</th>
-                                          <th>RUS EGI</th>
-                                          <th>URU ARA</th>
-                                          <th>ARA EGI</th>
-                                          <th>URU RUS</th>
+                                          <th>POL SEN</th>
+                                          <th>COL JAP</th>
+                                          <th>POL COL</th>
+                                          <th>JAP SEN</th>
+                                          <th>JAP POL</th>
+                                          <th>SEN COL</th>
                                          </tr></thead>    
                                     <tbody>
                                         <tr>
                                         <td>User1</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="14.0"></td>
+                                        <td id="15.0"></td>
+                                        <td id="30.0"></td>
+                                        <td id="31.0"></td>
+                                        <td id="46.0"></td>
+                                        <td id="47.0"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario2</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="14.1"></td>
+                                        <td id="15.1"></td>
+                                        <td id="30.1"></td>
+                                        <td id="31.1"></td>
+                                        <td id="46.1"></td>
+                                        <td id="47.1"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario3</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="14.2"></td>
+                                        <td id="15.2"></td>
+                                        <td id="30.2"></td>
+                                        <td id="31.2"></td>
+                                        <td id="46.2"></td>
+                                        <td id="47.2"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario4</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="14.3"></td>
+                                        <td id="15.3"></td>
+                                        <td id="30.3"></td>
+                                        <td id="31.3"></td>
+                                        <td id="46.3"></td>
+                                        <td id="47.3"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario5</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="14.4"></td>
+                                        <td id="15.4"></td>
+                                        <td id="30.4"></td>
+                                        <td id="31.4"></td>
+                                        <td id="46.4"></td>
+                                        <td id="47.4"></td>
                                         </tr>
                                         <tr>
                                         <td>Usuario6</td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td></td>
+                                        <td id="14.5"></td>
+                                        <td id="15.5"></td>
+                                        <td id="30.5"></td>
+                                        <td id="31.5"></td>
+                                        <td id="46.5"></td>
+                                        <td id="47.5"></td>
                                         </tr>
+                                        <tr>
+                                                <td>Usuario7</td>
+                                        <td id="14.6"></td>
+                                        <td id="15.6"></td>
+                                        <td id="30.6"></td>
+                                        <td id="31.6"></td>
+                                        <td id="46.6"></td>
+                                        <td id="47.6"></td>
+                                                </tr>
+                                                <tr>
+                                                <td>Usuario8</td>
+                                        <td id="14.7"></td>
+                                        <td id="15.7"></td>
+                                        <td id="30.7"></td>
+                                        <td id="31.7"></td>
+                                        <td id="46.7"></td>
+                                        <td id="47.7"></td>
+                                                </tr>
+                                                <tr>
+                                                <td>Usuario9</td>
+                                                <td id="14.8"></td>
+                                        <td id="15.8"></td>
+                                        <td id="30.8"></td>
+                                        <td id="31.8"></td>
+                                        <td id="46.8"></td>
+                                        <td id="47.8"></td>
+                                                </tr> <td>RES</td>
+                                                <td id="res14"> </td>
+                                                <td id="res15"> </td>
+                                                <td id="res30"> </td>
+                                                <td id="res31"> </td>
+                                                <td id="res46"> </td>
+                                                <td id="res47"></td>                                         
                                         </tbody>
                                         </table>
                                 <br>
                               </div>                   
                             </div>        
-                          </div>
-                          <div class="w3-row-padding w3-padding-32" style="margin: -16px">
-                                <div class="w3-half w3-margin-bottom">
-                                  <div class="w3-container w3-white"id="groupGMatchesDiv">
-                                    <p><b>Grupo G</b></p>
-                                    <table class="topazCells">
-                                            <col width="60">
-                                            <thead>
-                                            <th>Usuario</th>
-                                              <th>RUS ARA</th>
-                                              <th>EGY URU</th>
-                                              <th>RUS EGI</th>
-                                              <th>URU ARA</th>
-                                              <th>ARA EGI</th>
-                                              <th>URU RUS</th>
-                                             </tr></thead>    
-                                        <tbody>
-                                            <tr>
-                                            <td>User1</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario3</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario4</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario5</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario6</td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td></td>
-                                            </tr>
-                                            </tbody>
-                                            </table>
-                                    <br>
-                                  </div>
-                                </div>
-                                <div class="w3-half w3-margin-bottom">
-                                  <div class="w3-container w3-white"id="groupHMatchesDiv">
-                                    <p><b>Grupo H</b></p>
-                                    <table class="topazCells">
-                                            <col width="60">
-                                            <thead>
-                                            <th>Usuario</th>
-                                              <th>RUS ARA</th>
-                                              <th>EGY URU</th>
-                                              <th>RUS EGI</th>
-                                              <th>URU ARA</th>
-                                              <th>ARA EGI</th>
-                                              <th>URU RUS</th>
-                                             </tr></thead>    
-                                        <tbody>
-                                            <tr>
-                                            <td>User1</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario2</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario3</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario4</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario5</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            </tr>
-                                            <tr>
-                                            <td>Usuario6</td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td></td>
-                                            </tr>
-                                            </tbody>
-                                            </table>
-                                    <br>
-                                  </div>                   
-                                </div>        
-                              </div>  
+                          </div>  
 
 
-                
-            </div>
             
-      
-            <ul class="w3-ul w3-border w3-white w3-text-grey">
-              <li class="w3-padding">September <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-              <li class="w3-padding">October <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-              <li class="w3-padding">November <span class="w3-badge w3-right w3-margin-right">3</span></li>
-            </ul>
-      
-            
-          </div>
         </div>
-      
         
-      
-       
-        
-      <!-- End Page Content -->
-      </div>
-      
-      <!-- Footer -->
-      <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
-        <i class="fa fa-facebook-official w3-hover-opacity"></i>
-        <i class="fa fa-instagram w3-hover-opacity"></i>
-        <i class="fa fa-snapchat w3-hover-opacity"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-        <i class="fa fa-twitter w3-hover-opacity"></i>
-        <i class="fa fa-linkedin w3-hover-opacity"></i>
-        <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-      </footer>
-
   
+        <ul class="w3-ul w3-border w3-white w3-text-grey">
+          <li class="w3-padding">September <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
+          <li class="w3-padding">October <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
+          <li class="w3-padding">November <span class="w3-badge w3-right w3-margin-right">3</span></li>
+        </ul>
+  
+        
+      </div>
+    </div>
+  
+    
+  
+   
+    
+  <!-- End Page Content -->
+  </div>
+  
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+  </footer>
+
+
 <h1>A Web Page</h1>
 <div id="positionsTable"></div>
 <div id="user1Div"></div>
 
 <!--<div id="myList2"></div>
-		<script type="text/javascript">
-		var names = ['vitosh','academy','dot','com'];
-		var ul = document.createElement('ul');
-		document.getElementById('myList').appendChild(ul);
- 
-		names.forEach(function(name){
-			var li = document.createElement('li');
-			ul.appendChild(li);
-			li.innerHTML += name;
-		});
-		</script>-->
+    <script type="text/javascript">
+    var names = ['vitosh','academy','dot','com'];
+    var ul = document.createElement('ul');
+    document.getElementById('myList').appendChild(ul);
+
+    names.forEach(function(name){
+        var li = document.createElement('li');
+        ul.appendChild(li);
+        li.innerHTML += name;
+    });
+    </script>-->
 <p>AAAAAAAAAAAAAAAAAA</p>
 <p id="demo">A Paragraph</p>
 <p id="demo2">A Paragraph</p>
@@ -971,38 +1266,35 @@ function groupView(){
 
 <table id="table-example-1">
 <caption>Specification values: <b>Steel</b>, <b>Castings</b>,
-    Ann. A.S.T.M. A27-16, Class B;* P max. 0.06; S max. 0.05.</caption>
-    <thead>
-    <tr><th rowspan="2">Grade.</th>
-      <th rowspan="2">Yield Point.</th>
-      <th colspan="2">Ultimate tensile strength</th>
-      <th rowspan="2">Per cent elong. 50.8&nbsp;mm or&nbsp;2&nbsp;in.</th>
-      <th rowspan="2">Per cent reduct. area.</th>
-     </tr><tr><th>kg/mm<sup>2</sup></th>
-      <th>lb/in<sup>2</sup></th>
-     </tr></thead><tbody><tr><td>Hard</td>
-      <td>0.45 ultimate</td>
-      <td>56.2</td>
-      <td>80,000</td>
-      <td>15</td>
-      <td>20</td>
-     </tr><tr><td>Medium</td>
-      <td>0.45 ultimate</td>
-      <td>49.2</td>
-      <td>70,000</td>
-      <td>18</td>
-      <td>25</td>
-     </tr><tr><td>Soft</td>
-      <td>0.45 ultimate</td>
-      <td>42.2</td>
-      <td>60,000</td>
-      <td>22</td>
-      <td>30</td>
-     </tr></tbody></table>
-
-
+Ann. A.S.T.M. A27-16, Class B;* P max. 0.06; S max. 0.05.</caption>
+<thead>
+<tr><th rowspan="2">Grade.</th>
+  <th rowspan="2">Yield Point.</th>
+  <th colspan="2">Ultimate tensile strength</th>
+  <th rowspan="2">Per cent elong. 50.8&nbsp;mm or&nbsp;2&nbsp;in.</th>
+  <th rowspan="2">Per cent reduct. area.</th>
+ </tr><tr><th>kg/mm<sup>2</sup></th>
+  <th>lb/in<sup>2</sup></th>
+ </tr></thead><tbody><tr><td>Hard</td>
+  <td>0.45 ultimate</td>
+  <td>56.2</td>
+  <td>80,000</td>
+  <td>15</td>
+  <td>20</td>
+ </tr><tr><td>Medium</td>
+  <td>0.45 ultimate</td>
+  <td>49.2</td>
+  <td>70,000</td>
+  <td>18</td>
+  <td>25</td>
+ </tr><tr><td>Soft</td>
+  <td>0.45 ultimate</td>
+  <td>42.2</td>
+  <td>60,000</td>
+  <td>22</td>
+  <td>30</td>
+ </tr></tbody></table>
 
 
 </body>
 </html>
-
