@@ -4,55 +4,55 @@
     "id": 1,
     "Home": "Russia",
     "Away": "Saudi Arabia",
-    "result": "away"
+    "result": "RUS"
   },
   {
     "id": 2,
     "Home": "Egypt",
     "Away": "Uruguay",
-    "result": "home"
+    "result": "URU"
   },
   {
     "id": 3,
     "Home": "Portugal",
     "Away": "Spain",
-    "result": "home"
+    "result": "POR"
   },
   {
     "id": 4,
     "Home": "Morocco",
     "Away": "Iran",
-    "result": "away"
+    "result": "MAR"
   },
   {
     "id": 5,
     "Home": "France",
     "Away": "Australia",
-    "result": "away"
+    "result": "FRA"
   },
   {
     "id": 6,
     "Home": "Peru",
     "Away": "Denmark",
-    "result": "away"
+    "result": "PER"
   },
   {
     "id": 7,
     "Home": "Argentina",
     "Away": "Iceland",
-    "result": "away"
+    "result": "ARG"
   },
   {
     "id": 8,
     "Home": "Croatia",
     "Away": "Nigeria",
-    "result": "away"
+    "result": "CRO"
   },
   {
     "id": 9,
     "Home": "Brazil",
     "Away": "Switzerland",
-    "result": "away"
+    "result": "BRA"
   },
   {
     "id": 10,
