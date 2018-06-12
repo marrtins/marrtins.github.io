@@ -67,7 +67,7 @@ table.topazCells loser {
 
 
         function myFunctionInit() {
-    document.getElementById("demo").innerHTML = "Paragraph changed.";
+    //document.getElementById("demo").innerHTML = "Paragraph changed.";
     //alert("aksjdklasjdk")
     $.getJSON('https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json', function(data) {
     //$.getJSON('https://raw.githubusercontent.com/marrtins/datapr/master/getData.json', function(data) {//document.getElementById("demo2").innerHTML = data.groups.a.matches[5].name;
@@ -415,12 +415,12 @@ function groupView(){
                         <tbody>
                             <tr>
                             <td id="u0">User1</td>
-                            <td id="0.0">RUS</td>
-                            <td id="1.0">URU</td>
-                            <td id="16.0">RUS</td>
-                            <td id="17.0">KSA</td>
-                            <td id="32.0">URU</td>
-                            <td id="33.0">EGY</td>
+                            <td id="0.0"></td>
+                            <td id="1.0"></td>
+                            <td id="16.0"></td>
+                            <td id="17.0"></td>
+                            <td id="32.0"></td>
+                            <td id="33.0"></td>
                             </tr>
                             <tr>
                             <td id="u1">Usuario2</td>
@@ -1301,60 +1301,6 @@ function groupView(){
     <i class="fa fa-linkedin w3-hover-opacity"></i>
     <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
   </footer>
-
-
-<h1>A Web Page</h1>
-<div id="positionsTable"></div>
-<div id="user1Div"></div>
-
-<!--<div id="myList2"></div>
-    <script type="text/javascript">
-    var names = ['vitosh','academy','dot','com'];
-    var ul = document.createElement('ul');
-    document.getElementById('myList').appendChild(ul);
-
-    names.forEach(function(name){
-        var li = document.createElement('li');
-        ul.appendChild(li);
-        li.innerHTML += name;
-    });
-    </script>-->
-<p>AAAAAAAAAAAAAAAAAA</p>
-<p id="demo">A Paragraph</p>
-<p id="demo2">A Paragraph</p>
-<button type="button" onclick="myFunctionInit()">Try it</button>
-
-<table id="table-example-1">
-<caption>Specification values: <b>Steel</b>, <b>Castings</b>,
-Ann. A.S.T.M. A27-16, Class B;* P max. 0.06; S max. 0.05.</caption>
-<thead>
-<tr><th rowspan="2">Grade.</th>
-  <th rowspan="2">Yield Point.</th>
-  <th colspan="2">Ultimate tensile strength</th>
-  <th rowspan="2">Per cent elong. 50.8&nbsp;mm or&nbsp;2&nbsp;in.</th>
-  <th rowspan="2">Per cent reduct. area.</th>
- </tr><tr><th>kg/mm<sup>2</sup></th>
-  <th>lb/in<sup>2</sup></th>
- </tr></thead><tbody><tr><td>Hard</td>
-  <td>0.45 ultimate</td>
-  <td>56.2</td>
-  <td>80,000</td>
-  <td>15</td>
-  <td>20</td>
- </tr><tr><td>Medium</td>
-  <td>0.45 ultimate</td>
-  <td>49.2</td>
-  <td>70,000</td>
-  <td>18</td>
-  <td>25</td>
- </tr><tr><td>Soft</td>
-  <td>0.45 ultimate</td>
-  <td>42.2</td>
-  <td>60,000</td>
-  <td>22</td>
-  <td>30</td>
- </tr></tbody></table>
-
 
 </body>
 </html>
