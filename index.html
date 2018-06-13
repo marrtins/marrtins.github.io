@@ -52,11 +52,75 @@ table.topazCells winner {
 table.topazCells loser {
   background: rgb(255, 0, 0);
 }
+
+
+
+table.greenTable {
+  font-family: Georgia, serif;
+  border: 6px solid #24943A;
+  background-color: #D4EED1;
+  width: 30%;
+  
+  
+}
+table.greenTable td, table.greenTable th {
+  border: 2px solid #24943A;
+  padding: 3px 2px;
+}
+table.greenTable tbody td {
+  font-size: 13px;
+}
+table.greenTable thead {
+  background: #24943A;
+  background: -moz-linear-gradient(top, #5baf6b 0%, #3a9e4d 66%, #24943A 100%);
+  background: -webkit-linear-gradient(top, #5baf6b 0%, #3a9e4d 66%, #24943A 100%);
+  background: linear-gradient(to bottom, #5baf6b 0%, #3a9e4d 66%, #24943A 100%);
+  border-bottom: 0px solid #444444;
+}
+table.greenTable thead th {
+  font-size: 19px;
+  font-weight: bold;
+  color: #F0F0F0;
+  text-align: left;
+  border-left: 2px solid #24943A;
+}
+table.greenTable thead th:first-child {
+  border-left: none;
+}
+
+table.greenTable tfoot {
+  font-size: 13px;
+  font-weight: bold;
+  color: #F0F0F0;
+  background: #24943A;
+  background: -moz-linear-gradient(top, #5baf6b 0%, #3a9e4d 66%, #24943A 100%);
+  background: -webkit-linear-gradient(top, #5baf6b 0%, #3a9e4d 66%, #24943A 100%);
+  background: linear-gradient(to bottom, #5baf6b 0%, #3a9e4d 66%, #24943A 100%);
+  border-top: 1px solid #24943A;
+}
+table.greenTable tfoot td {
+  font-size: 13px;
+}
+table.greenTable tfoot .links {
+  text-align: right;
+}
+table.greenTable tfoot .links a{
+  display: inline-block;
+  background: #FFFFFF;
+  color: #24943A;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+
+
         </style>
 
 
     <head>
             <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+            <script type="text/javascript" src="data.js"></script> 
+
         <title>Test</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script type="text/javascript">
@@ -69,8 +133,30 @@ table.topazCells loser {
         function myFunctionInit() {
     //document.getElementById("demo").innerHTML = "Paragraph changed.";
     //alert("aksjdklasjdk")
-    $.getJSON('https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json', function(data) {
+    played3 = getPlayedMatches(localMatches);
+     played1=0;
+     lastM=0;
+     data1=null;
+    $.getJSON('https://raw.githubusercontent.com/marrtins/datapr/master/getData.json', function(datax) {
+        played1 = getPlayedMatches(datax);
+        data1=datax;
+        
+    });
+        
+    $.getJSON('https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json', function(data2) {
     //$.getJSON('https://raw.githubusercontent.com/marrtins/datapr/master/getData.json', function(data) {//document.getElementById("demo2").innerHTML = data.groups.a.matches[5].name;
+     played2 = getPlayedMatches(data2);
+    if(played1>played2 && played1>played3){ 
+        data=data1;
+        lastM=played1;
+     }else if(played3>played1 && played3>played2){
+         data=localMatches;
+         lastM=played3;
+     }else{
+         data = data2;
+         lastM=played2;
+     }
+
     var teams = data.teams;
     groupAMatches=parseMatches(data.groups.a.matches,teams);
     groupBMatches=parseMatches(data.groups.b.matches,teams);
@@ -94,22 +180,34 @@ table.topazCells loser {
             :b.id>a.id?-1
             : 0;
     });
-});
-  $.getJSON("https://raw.githubusercontent.com/marrtins/datapr/master/ddd.json", function(predctionData){
-    userData=parseUserData2(predctionData,allMatches);
+//});
+  //$.getJSON("https://raw.githubusercontent.com/marrtins/datapr/master/ddd.json", function(predctionData){
+    
+    userData=parseUserData2(prono,allMatches);
     var x2 = document.getElementById("tablapiola").getElementsByTagName("td");
     x3 = document.getElementById("tablapiola").getElementsByTagName("td");
     fillCells2(userData);
     colorCells(userData,allMatches);
     
     pointsTable=setPointsTable(userData);
-    var list = document.createElement('ul');
+    var idAux="";
+    var paux="";
+    for(var i=1;i<pointsTable.length+1;i++){
+        idAux="l"+i;
+        paux="p"+i;
+        document.getElementById(idAux).innerHTML=pointsTable[i-1].username;
+        document.getElementById(paux).innerHTML=pointsTable[i-1].points;
+    }
+    document.getElementById("posFoot").innerHTML="Jugados: "+ lastM 
+    //+ "<br>  Ult Actualizacion: "+allMatches[lastM].home_team_name +" v "+allMatches[lastM].away_team_name;
+
+    /*var list = document.createElement('ul');
       document.getElementById("positionsTable").appendChild(list);
       for (var i = 0; i < pointsTable.length; i++) {
           var item = document.createElement('li');
-          item.appendChild(document.createTextNode(pointsTable[i].username+" "+pointsTable[i].points));
+          item.appendChild(document.createTextNode(( (i+1).toString()+"° "+pointsTable[i].username+" "+pointsTable[i].points)));
           list.appendChild(item);
-      }
+      }*/
   });
   
   
@@ -122,7 +220,12 @@ function fillCells2(udata2){
     for(var i=0;i<userData.length;i++){
         predictions=userData[i].predictions
         id2="u"+i;
-        document.querySelectorAll(id2).innerHTML=userData[i].username
+        //var list=document.getElementsByClassName(id2).innerHTML=userData[i].username
+        var list=document.getElementsByClassName(id2)
+        
+        for(var q = 0;q<list.length;q++){
+            list[q].innerHTML=userData[i].username;
+        }
         while(o<48){
             winnerTeam = predictions[o];
             idAux=o.toString()+"."+i.toString();
@@ -133,6 +236,34 @@ function fillCells2(udata2){
         }
         o=0;
     }
+}
+
+function getPlayedMatches(data){
+    
+   
+
+    var finished = finishedByGroup(data.groups.a.matches);
+    finished +=finishedByGroup(data.groups.b.matches);
+    finished +=finishedByGroup(data.groups.c.matches);
+    finished +=finishedByGroup(data.groups.d.matches);
+    finished +=finishedByGroup(data.groups.e.matches);
+    finished +=finishedByGroup(data.groups.f.matches);
+    finished +=finishedByGroup(data.groups.g.matches);
+    finished +=finishedByGroup(data.groups.h.matches);
+   
+    return finished
+
+}
+
+function finishedByGroup(matches){
+    
+    finished=0;
+    
+    
+    matches.forEach(match => {
+        if(match.finished) finished++;
+    });
+    return finished;
 }
 
 function fillCells(userData){
@@ -155,10 +286,7 @@ function fillCells(userData){
     }
 }
 function colorCells(userData,allMatches){
-    document.getElementById("test3").innerHTML="hola";
-    //document.getElementById("test4").style.backgroundColor="lightblue";
-    document.getElementById("test3").innerHTML=document.getElementById("test3").innerHTML+"asdasd";
-
+    
    celdas = document.getElementById("tablapiola");
 
     idAux="";
@@ -177,7 +305,9 @@ function colorCells(userData,allMatches){
             
             if(document.getElementById(idAux)!=null){
                 if(document.getElementById(idAux).innerHTML==teamWinner)
-                document.getElementById(idAux).style.backgroundColor="lightblue";
+                document.getElementById(idAux).style.backgroundColor="green";
+                else 
+                if(teamWinner!=null)document.getElementById(idAux).style.backgroundColor="red";
             }
             
                 o++
@@ -300,7 +430,7 @@ function parseMatches(groupMatches,teams){
                 match.winnerName=teams[match.home_team_id-1].fifaCode;
             }else if(groupMatches[i].home_result < groupMatches[i].away_result ){
                 match.winner="away";
-                match.winnerName=teams[match.away_team_id-1].fifaCode;
+                match.winnerName=parseFifaCode(teams[match.away_team_id-1].fifaCode);
             }else{
                 match.winner="draw";
                 match.winnerName="EMP";
@@ -311,6 +441,22 @@ function parseMatches(groupMatches,teams){
     matchList.push(match);
     }
     return matchList;  
+}
+function parseFifaCode(name){
+    if(name=="KSA"){return "ARA";}
+    else if(name =="EGY"){return "EGI";}
+    else if(name =="IRN"){return "IRA";}
+    else if(name =="EGY"){return "EGI";}
+    else if(name =="DEN"){return "DIN";}
+    else if(name =="NGA"){return "NIG";}
+    else if(name =="GER"){return "ALE";}
+    else if(name =="SWE"){return "SUE";}
+    else if(name =="NGA"){return "NIG";}
+    else if(name =="KOR"){return "COR";}
+    else if(name =="NGA"){return "NIG";}
+    else if(name =="JAP"){return "JPN";}
+    
+    else return name;
 }
 function showMatches(groupMatches,groupDiv){
     var list = document.createElement('ul');
@@ -367,12 +513,65 @@ function groupView(){
     <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="position">
       <h2 class="w3-wide" id="positionsTable">Tabla de Posiciones</h2>
         <div>
-              <img src="https://thumbs.gfycat.com/WearyClutteredAmericanredsquirrel-max-1mb.gif"  />
+             
+            
+            
 
+
+
+
+
+
+
+
+            <table class="greenTable" align="center">
+                <thead>
+                <tr>
+                <th width="10%"></th>
+                <th width = "70%"></th>
+                <th width ="20%"></th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                <td colspan="3" id="posFoot" align="left"> Jugados: 
+                </a></div>
+                </td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr>
+                <td>1°</td><td id="l1">cell2_1</td><td id="p1">cell3_1</td></tr>
+                <tr>
+                <td>2°</td><td id="l2">cell2_2</td><td id="p2">cell3_2</td></tr>
+                <tr>
+                <td>3°</td><td id="l3">cell2_3</td><td id="p3">cell3_3</td></tr>
+                <tr>
+                <td>4°</td><td id="l4">cell2_4</td><td id="p4">cell3_4</td></tr>
+                <tr>
+                <td>5°</td><td id="l5">cell2_5</td><td id="p5">cell3_5</td></tr>
+                <tr>
+                <td>6°</td><td id="l6">cell2_6</td><td id="p6">cell3_6</td></tr>
+                <tr>
+                <td>7°</td><td id="l7">cell2_7</td><td id="p7">cell3_7</td></tr>
+                <tr>
+                <td>8°</td><td id="l8">cell2_8</td><td id="p8">cell3_8</td></tr>
+                <tr>
+                <td>9°</td><td id="l9">cell2_9</td><td id="p9">cell3_9</td></tr>
+                <tr>
+                <td>10°</td><td id="l10">cell2_10</td><td id="p10">cell3_10</td></tr>
+                </tbody>
+                </tr>
+                </table>
+
+
+         
+            
+            <!--<img src="https://thumbs.gfycat.com/WearyClutteredAmericanredsquirrel-max-1mb.gif"  />
+            <img src="https://thumbs.gfycat.com/WearyClutteredAmericanredsquirrel-max-1mb.gif"  />-->
             <table class="table table-hover">
-  
-             <img src="https://thumbs.gfycat.com/WearyClutteredAmericanredsquirrel-max-1mb.gif"  />
-             <div id="test3">AAAAAAAAAAAAAAAAAAAA</div>
+            
+             
 
             </table>
         </div>
@@ -386,8 +585,8 @@ function groupView(){
       <div class="w3-container w3-content w3-padding-64" style="max-width:800px">
         <h2 class="w3-wide w3-center" >Fixture</h2>
         <div>
-            <button class="pure-button" onclick="dateView()">Por fecha</button>
-            <button class="pure-button"onclick="groupView()">Por grupo</button>
+            <!--<button class="pure-button" onclick="dateView()">Por fecha</button>
+            <button class="pure-button"onclick="groupView()">Por grupo</button>-->
             <div ></div>
             <div id="groupBMatchesDiv"></div>
             <div id="groupCMatchesDiv"></div>
@@ -399,22 +598,22 @@ function groupView(){
             
             <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
                 <div class="w3-half w3-margin-bottom">
-                  <div class="w3-container w3-white"id="groupAMatchesDiv">
-                    <p><b>Grupo A</b></p>
+                  <div class="w3-container w3-white text-center"id="groupAMatchesDiv">
+                    <p align="center"><b>Grupo A</b></p>
                     <table class="topazCells" id="tablapiola">
                             <col width="60">
-                            <thead>
-                            <th>Usuario</th>
+                            <thead style="background-color:#cdb5ff">
+                            <th >Usuario</th>
                               <th>RUS ARA  </th>
                               <th>EGY URU </th>
                               <th>RUS EGI </th>
                               <th>URU ARA </th>
-                              <th>ARA EGI </th>
                               <th>URU RUS </th>
+                              <th>ARA EGI</th>
                              </tr></thead>    
                         <tbody>
                             <tr>
-                            <td id="u0">User1</td>
+                            <td class="u0">User1</td>
                             <td id="0.0"></td>
                             <td id="1.0"></td>
                             <td id="16.0"></td>
@@ -423,7 +622,7 @@ function groupView(){
                             <td id="33.0"></td>
                             </tr>
                             <tr>
-                            <td id="u1">Usuario2</td>
+                            <td class="u1">Usuario2</td>
                             <td id="0.1"></td>
                             <td id="1.1"></td>
                             <td id="16.1"></td>
@@ -432,7 +631,7 @@ function groupView(){
                             <td id="33.1"></td>
                             </tr>
                             <tr>
-                            <td id="u2">Usuario3</td>
+                            <td class="u2">Usuario3</td>
                             <td id="0.2"></td>
                             <td id="1.2"></td>
                             <td id="16.2"></td>
@@ -442,7 +641,7 @@ function groupView(){
                             
                             </tr>
                             <tr>
-                            <td id="u3">Usuario4</td>
+                            <td class="u3">Usuario4</td>
                             <td id="0.3"></td>
                             <td id="1.3"></td>
                             <td id="16.3"></td>
@@ -451,7 +650,7 @@ function groupView(){
                             <td id="33.3"></td>
                             </tr>
                             <tr>
-                            <td id="u4">Usuario5</td>
+                            <td class="u4">Usuario5</td>
                             <td id="0.4"></td>
                             <td id="1.4"></td>
                             <td id="16.4"></td>
@@ -460,7 +659,7 @@ function groupView(){
                             <td id="33.4"></td>
                             </tr>
                             <tr>
-                            <td id="u5">Usuario6</td>
+                            <td class="u5">Usuario6</td>
                             <td id="0.5"></td>
                             <td id="1.5"></td>
                             <td id="16.5"></td>
@@ -469,7 +668,7 @@ function groupView(){
                             <td id="33.5"></td>
                             </tr>
                             <tr>
-                            <td id="u6">Usuario7</td>
+                            <td class="u6">Usuario7</td>
                             <td id="0.6"></td>
                             <td id="1.6"></td>
                             <td id="16.6"></td>
@@ -478,7 +677,7 @@ function groupView(){
                             <td id="33.6"></td>
                             </tr>
                             <tr>
-                            <td id="u7">Usuario8</td>
+                            <td class="u7">Usuario8</td>
                             <td id="0.7"></td>
                             <td id="1.7"></td>
                             <td id="16.7"></td>
@@ -487,23 +686,26 @@ function groupView(){
                             <td id="33.7"></td>
                             </tr>
                             <tr>
-                            <td id="u8">Usuario9</td>
-                            <td id="0.8"></td>
-                            <td id="1.8"></td>
-                            <td id="16.8"></td>
-                            <td id="17.8"></td>
-                            <td id="32.8"></td>
-                            <td id="33.8"></td>
-                            
-                            </tr>      
+                            <td class="u8">Usuario9</td><td id="0.8"></td><td id="1.8"></td><td id="16.8"></td><td id="17.8"></td><td id="32.8"></td><td id="33.8"></td>     
+                            </tr>
                             <tr>
-                            <td>RES</td>
-                            <td id="res0"> </td>
-                            <td id="res1"> </td>
-                            <td id="res16"> </td>
-                            <td id="res17"> </td>
-                            <td id="res32"> </td>
-                            <td id="res33"></td>
+                            <td class="u9">Usuario10</td>
+                            <td id="0.9"></td>
+                            <td id="1.9"></td>
+                            <td id="16.9"></td>
+                            <td id="17.9"></td>
+                            <td id="32.9"></td>
+                            <td id="33.9"></td>
+                            </tr>
+
+                            <tr>
+                            <td style="background-color:#cdb5ff">RES</td>
+                            <td style="background-color:#cdb5ff" id="res0"> </td>
+                            <td style="background-color:#cdb5ff" id="res1"> </td>
+                            <td style="background-color:#cdb5ff" id="res16"> </td>
+                            <td style="background-color:#cdb5ff" id="res17"> </td>
+                            <td style="background-color:#cdb5ff" id="res32"> </td>
+                            <td style="background-color:#cdb5ff" id="res33"></td>
                             </tr>                        
                             
                             </tbody>
@@ -513,10 +715,10 @@ function groupView(){
                 </div>
                 <div class="w3-half w3-margin-bottom">
                   <div class="w3-container w3-white"id="groupBMatchesDiv">
-                    <p><b>Grupo B</b></p>
+                    <p align="center"><b>Grupo B</b></p>
                     <table class="topazCells">
                             <col width="60">
-                            <thead>
+                            <thead style="background-color:#cdb5ff">
                             <th>Usuario</th>
                               <th>POR ESP</th>
                               <th>MAR IRA</th>
@@ -527,7 +729,7 @@ function groupView(){
                              </tr></thead>    
                         <tbody>
                             <tr>
-                            <td id="u0">User1</td>
+                            <td class="u0">User1</td>
                             <td id="2.0"></td>
                             <td id="3.0"></td>
                             <td id="18.0"></td>
@@ -536,7 +738,7 @@ function groupView(){
                             <td id="35.0"></td>
                             </tr>
                             <tr>
-                            <td id="u1">Usuario2</td>
+                            <td class="u1">Usuario2</td>
                             <td id="2.1"></td>
                             <td id="3.1"></td>
                             <td id="18.1"></td>
@@ -545,7 +747,7 @@ function groupView(){
                             <td id="35.1"></td>
                             </tr>
                             <tr>
-                            <td id="u1">Usuario3</td>
+                            <td class="u1">Usuario3</td>
                             <td id="2.2"></td>
                             <td id="3.2"></td>
                             <td id="18.2"></td>
@@ -553,7 +755,7 @@ function groupView(){
                             <td id="34.2"></td>
                             <td id="35.2"></td>
                             <tr>
-                            <td id="u3">User3</td>
+                            <td class="u3">User3</td>
                             <td id="2.3"></td>
                             <td id="3.3"></td>
                             <td id="18.3"></td>
@@ -562,7 +764,7 @@ function groupView(){
                             <td id="35.3"></td>
                             </tr>
                             <tr>
-                            <td id="u4">User4</td>
+                            <td class="u4">User4</td>
                             <td id="2.4"></td>
                             <td id="3.4"></td>
                             <td id="18.4"></td>
@@ -571,7 +773,7 @@ function groupView(){
                             <td id="35.4"></td>
                             </tr>
                             <tr>
-                            <td id="u5">User1</td>
+                            <td class="u5">User1</td>
                             <td id="2.5"></td>
                             <td id="3.5"></td>
                             <td id="18.5"></td>
@@ -580,7 +782,7 @@ function groupView(){
                             <td id="35.5"></td>
                             </tr>
                              <tr>
-                            <td id="u6">User6</td>
+                            <td class="u6">User6</td>
                             <td id="2.6"></td>
                             <td id="3.6"></td>
                             <td id="18.6"></td>
@@ -589,7 +791,7 @@ function groupView(){
                             <td id="35.6"></td>
                             </tr>
                             <tr>
-                            <td id="u7">User7</td>
+                            <td class="u7">User7</td>
                             <td id="2.7"></td>
                             <td id="3.7"></td>
                             <td id="18.7"></td>
@@ -598,7 +800,7 @@ function groupView(){
                             <td id="35.7"></td>
                             </tr>
                             <tr>
-                            <td id="u8">User8</td>
+                            <td class="u8">User8</td>
                             <td id="2.8"></td>
                             <td id="3.8"></td>
                             <td id="18.8"></td>
@@ -606,13 +808,22 @@ function groupView(){
                             <td id="34.8"></td>
                             <td id="35.8"></td>
                             </tr>  
-                            <td>RES</td>
-                            <td id="res2"> </td>
-                            <td id="res3"> </td>
-                            <td id="res18"> </td>
-                            <td id="res19"> </td>
-                            <td id="res34"> </td>
-                            <td id="res35"></td>
+                            <tr>
+                            <td class="u9">Usuario10</td>
+                            <td id="2.9"></td>
+                            <td id="3.9"></td>
+                            <td id="18.9"></td>
+                            <td id="19.9"></td>
+                            <td id="34.9"></td>
+                            <td id="35.9"></td>
+                            </tr>
+                            <td style="background-color:#cdb5ff">RES</td>
+                            <td style="background-color:#cdb5ff" id="res2"> </td>
+                            <td style="background-color:#cdb5ff" id="res3"> </td>
+                            <td style="background-color:#cdb5ff" id="res18"> </td>
+                            <td style="background-color:#cdb5ff" id="res19"> </td>
+                            <td style="background-color:#cdb5ff" id="res34"> </td>
+                            <td style="background-color:#cdb5ff" id="res35"></td>
                             </tbody>
                             </table>
                     <br>
@@ -623,10 +834,10 @@ function groupView(){
               <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">    
                 <div class="w3-half w3-margin-bottom">
                       <div class="w3-container w3-white"id="groupCMatchesDiv">
-                        <p><b>Grupo C</b></p>
+                        <p align="center"><b>Grupo C</b></p>
                         <table class="topazCells">
                                 <col width="60">
-                                <thead>
+                                <thead style="background-color:#cdb5ff">
                                 <th>Usuario</th>
                                   <th>FRA AUS</th>
                                   <th>PER DIN</th>
@@ -637,7 +848,7 @@ function groupView(){
                                  </tr></thead>    
                             <tbody>
                                 <tr>
-                                <td id="u0">User1</td>
+                                <td class="u0">User1</td>
                                 <td id="4.0"></td>
                                 <td id="5.0"></td>
                                 <td id="20.0"></td>
@@ -646,7 +857,7 @@ function groupView(){
                                 <td id="37.0"></td>
                                 </tr>
                                 <tr>
-                                <td id="u1">User1</td>
+                                <td class="u1">User1</td>
                                 <td id="4.1"></td>
                                 <td id="5.1"></td>
                                 <td id="20.1"></td>
@@ -655,7 +866,7 @@ function groupView(){
                                 <td id="37.1"></td>
                                 </tr>
                                 <tr>
-                                <td id="u2">User2</td>
+                                <td class="u2">User2</td>
                                 <td id="4.2"></td>
                                 <td id="5.2"></td>
                                 <td id="20.2"></td>
@@ -664,7 +875,7 @@ function groupView(){
                                 <td id="37.2"></td>
                                 </tr>
                                 <tr>
-                                <td id="u3">User3</td>
+                                <td class="u3">User3</td>
                                 <td id="4.3"></td>
                                 <td id="5.3"></td>
                                 <td id="20.3"></td>
@@ -673,7 +884,7 @@ function groupView(){
                                 <td id="37.3"></td>
                                 </tr>
                                 <tr>
-                                <td id="u4">User4</td>
+                                <td class="u4">User4</td>
                                 <td id="4.4"></td>
                                 <td id="5.4"></td>
                                 <td id="20.4"></td>
@@ -682,7 +893,7 @@ function groupView(){
                                 <td id="37.4"></td>
                                 </tr>
                                 <tr>
-                                <td id="u5">User1</td>
+                                <td class="u5">User5</td>
                                 <td id="4.5"></td>
                                 <td id="5.5"></td>
                                 <td id="20.5"></td>
@@ -691,7 +902,7 @@ function groupView(){
                                 <td id="37.5"></td>
                                 </tr>
                             <tr>
-                            <td id="u6">User6</td>
+                            <td class="u6">User6</td>
                             <td id="4.6"></td>
                                 <td id="5.6"></td>
                                 <td id="20.6"></td>
@@ -700,7 +911,7 @@ function groupView(){
                                 <td id="37.6"></td>
                             </tr>
                             <tr>
-                            <td id="u7">User7</td>
+                            <td class="u7">User7</td>
                             <td id="4.7"></td>
                                 <td id="5.7"></td>
                                 <td id="20.7"></td>
@@ -709,20 +920,30 @@ function groupView(){
                                 <td id="37.7"></td>
                             </tr>
                             <tr>
-                            <td id="u8">User8</td>
+                            <td class="u8">User8</td>
                             <td id="4.8"></td>
                                 <td id="5.8"></td>
                                 <td id="20.8"></td>
                                 <td id="21.8"></td>
                                 <td id="36.8"></td>
                                 <td id="37.8"></td>
-                            </tr>  <td>RES</td>
-                            <td id="res4"> </td>
-                            <td id="res5"> </td>
-                            <td id="res20"> </td>
-                            <td id="res21"> </td>
-                            <td id="res36"> </td>
-                            <td id="res37"></td>
+                                <tr>
+                                    <td class="u9">Usuario10</td>
+                                    <td id="4.9"></td>
+                                    <td id="5.9"></td>
+                                    <td id="20.9"></td>
+                                    <td id="21.9"></td>
+                                    <td id="36.9"></td>
+                                    <td id="37.9"></td>
+                                    </tr>
+                                  
+                            </tr>  <td style="background-color:#cdb5ff">RES</td>
+                            <td style="background-color:#cdb5ff" id="res4"> </td>
+                            <td style="background-color:#cdb5ff" id="res5"> </td>
+                            <td style="background-color:#cdb5ff" id="res20"> </td>
+                            <td style="background-color:#cdb5ff" id="res21"> </td>
+                            <td style="background-color:#cdb5ff" id="res36"> </td>
+                            <td style="background-color:#cdb5ff" id="res37"></td>
                                 </tbody>
                                 </table>
                         <br>
@@ -730,10 +951,10 @@ function groupView(){
                     </div>
                     <div class="w3-half w3-margin-bottom">
                       <div class="w3-container w3-white"id="groupDMatchesDiv">
-                        <p><b>Grupo D</b></p>
+                        <p align="center"><b>Grupo D</b></p>
                         <table class="topazCells">
                                 <col width="60">
-                                <thead>
+                                <thead style="background-color:#cdb5ff">
                                 <th>Usuario</th>
                                   <th>ARG ISL</th>
                                   <th>CRO NIG</th>
@@ -744,7 +965,7 @@ function groupView(){
                                  </tr></thead>    
                             <tbody>
                                 <tr>
-                                <td id="u0">User1</td>
+                                <td class="u0">User1</td>
                                 <td id="6.0"></td>
                                 <td id="7.0"></td>
                                 <td id="22.0"></td>
@@ -753,7 +974,7 @@ function groupView(){
                                 <td id="39.0"></td>
                                 </tr>
                                 <tr>
-                                <td id="u1">User1</td>
+                                <td class="u1">User1</td>
                                 <td id="6.1"></td>
                                 <td id="7.1"></td>
                                 <td id="22.1"></td>
@@ -762,7 +983,7 @@ function groupView(){
                                 <td id="39.1"></td>
                                 </tr>
                                 <tr>
-                                <td id="u2">User2</td>
+                                <td class="u2">User2</td>
                                 <td id="6.2"></td>
                                 <td id="7.2"></td>
                                 <td id="22.2"></td>
@@ -771,7 +992,7 @@ function groupView(){
                                 <td id="39.2"></td>
                                 </tr>
                                 <tr>
-                                <td id="u3">User3</td>
+                                <td class="u3">User3</td>
                                 <td id="6.3"></td>
                                 <td id="7.3"></td>
                                 <td id="22.3"></td>
@@ -780,7 +1001,7 @@ function groupView(){
                                 <td id="39.3"></td>
                                 </tr>
                                 <tr>
-                                <td id="u4">User4</td>
+                                <td class="u4">User4</td>
                                 <td id="6.4"></td>
                                 <td id="7.4"></td>
                                 <td id="22.4"></td>
@@ -789,7 +1010,7 @@ function groupView(){
                                 <td id="39.4"></td>
                                 </tr>
                                 <tr>
-                                <td id="u5">User1</td>
+                                <td class="u5">User1</td>
                                 <td id="6.5"></td>
                                 <td id="7.5"></td>
                                 <td id="22.5"></td>
@@ -798,7 +1019,7 @@ function groupView(){
                                 <td id="39.5"></td>
                                 </tr>
                             <tr>
-                            <td id="u6">User6</td>
+                            <td class="u6">User6</td>
                             <td id="6.6"></td>
                             <td id="7.6"></td>
                             <td id="22.6"></td>
@@ -807,7 +1028,7 @@ function groupView(){
                             <td id="39.6"></td>
                             </tr>
                             <tr>
-                            <td id="u7">User7</td>
+                            <td class="u7">User7</td>
                             <td id="6.7"></td>
                             <td id="7.7"></td>
                             <td id="22.7"></td>
@@ -816,20 +1037,34 @@ function groupView(){
                             <td id="39.7"></td>
                             </tr>
                             <tr>
-                            <td id="u8">User8</td>
+                            <td class="u8">User8</td>
                             <td id="6.8"></td>
                                 <td id="7.8"></td>
                                 <td id="22.8"></td>
                                 <td id="23.8"></td>
                                 <td id="38.8"></td>
                                 <td id="39.8"></td>
-                            </tr><td>RES</td>
-                            <td id="res6"> </td>
-                            <td id="res7"> </td>
-                            <td id="res22"> </td>
-                            <td id="res23"> </td>
-                            <td id="res38"> </td>
-                            <td id="res39"></td>  
+                            </tr>
+                            
+                            
+                            
+                            <tr>
+                                <td class="u9">Usuario10</td>
+                                <td id="6.9"></td>
+                                <td id="7.9"></td>
+                                <td id="22.9"></td>
+                                <td id="23.9"></td>
+                                <td id="38.9"></td>
+                                <td id="39.9"></td>
+                                </tr>
+                            
+                            <td style="background-color:#cdb5ff">RES</td>
+                            <td style="background-color:#cdb5ff" id="res6"> </td>
+                            <td style="background-color:#cdb5ff" id="res7"> </td>
+                            <td style="background-color:#cdb5ff" id="res22"> </td>
+                            <td style="background-color:#cdb5ff" id="res23"> </td>
+                            <td style="background-color:#cdb5ff" id="res38"> </td>
+                            <td style="background-color:#cdb5ff" id="res39"></td>  
                                 </tbody>
                                 </table>
                         <br>
@@ -839,21 +1074,21 @@ function groupView(){
                   <div class="w3-row-padding w3-padding-32" style="margin: -16px">
                         <div class="w3-half w3-margin-bottom">
                           <div class="w3-container w3-white"id="groupEMatchesDiv">
-                            <p><b>Grupo E</b></p>
+                            <p align="center"><b>Grupo E</b></p>
                             <table class="topazCells">
                                     <col width="60">
-                                    <thead>
+                                    <thead style="background-color:#cdb5ff">
                                     <th>Usuario</th>
                                       <th>BRA SUI</th>
-                                      <th>CRC SER</th>
+                                      <th>CRC SRB</th>
                                       <th>BRA CRC</th>
-                                      <th>SER ARA</th>
-                                      <th>SER BRA</th>
+                                      <th>SRB SUI</th>
+                                      <th>SRB BRA</th>
                                       <th>SUI CRC</th>
                                      </tr></thead>    
                                 <tbody>
                                     <tr>
-                                    <td id="u0">User1</td>
+                                    <td class="u0">User1</td>
                                     <td id="8.0"></td>
                                     <td id="9.0"></td>
                                     <td id="24.0"></td>
@@ -862,7 +1097,7 @@ function groupView(){
                                     <td id="41.0"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u1">User1</td>
+                                    <td class="u1">User1</td>
                                     <td id="8.1"></td>
                                     <td id="9.1"></td>
                                     <td id="24.1"></td>
@@ -871,7 +1106,7 @@ function groupView(){
                                     <td id="41.1"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u2">User2</td>
+                                    <td class="u2">User2</td>
                                     <td id="8.2"></td>
                                     <td id="9.2"></td>
                                     <td id="24.2"></td>
@@ -880,7 +1115,7 @@ function groupView(){
                                     <td id="41.2"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u3">User3</td>
+                                    <td class="u3">User3</td>
                                     <td id="8.3"></td>
                                     <td id="9.3"></td>
                                     <td id="24.3"></td>
@@ -889,7 +1124,7 @@ function groupView(){
                                     <td id="41.3"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u4">User4</td>
+                                    <td class="u4">User4</td>
                                     <td id="8.4"></td>
                                     <td id="9.4"></td>
                                     <td id="24.4"></td>
@@ -898,7 +1133,7 @@ function groupView(){
                                     <td id="41.4"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u5">User1</td>
+                                    <td class="u5">User1</td>
                                     <td id="8.5"></td>
                                     <td id="9.5"></td>
                                     <td id="24.5"></td>
@@ -906,17 +1141,9 @@ function groupView(){
                                     <td id="40.5"></td>
                                     <td id="41.5"></td>
                                     </tr>
+                            
                             <tr>
-                            <td id="u6">User6</td>
-                            <td id="8.5"></td>
-                                    <td id="9.5"></td>
-                                    <td id="24.5"></td>
-                                    <td id="25.5"></td>
-                                    <td id="40.5"></td>
-                                    <td id="41.5"></td>
-                            </tr>
-                            <tr>
-                            <td id="u7">User7</td>
+                            <td class="u7">User7</td>
                             <td id="8.6"></td>
                                     <td id="9.6"></td>
                                     <td id="24.6"></td>
@@ -925,20 +1152,41 @@ function groupView(){
                                     <td id="41.6"></td>
                             </tr>
                             <tr>
-                            <td id="u8">User8</td>
+                            <td class="u8">User8</td>
                             <td id="8.7"></td>
                                     <td id="9.7"></td>
                                     <td id="24.7"></td>
                                     <td id="25.7"></td>
                                     <td id="40.7"></td>
                                     <td id="41.7"></td>
-                            </tr> <td>RES</td>
-                            <td id="res8"> </td>
-                            <td id="res9"> </td>
-                            <td id="res24"> </td>
-                            <td id="res25"> </td>
-                            <td id="res40"> </td>
-                            <td id="res41"></td>                                     
+                                    <tr>
+                                        <td class="u9">User6</td>
+                                        <td id="8.8"></td>
+                                                <td id="9.8"></td>
+                                                <td id="24.8"></td>
+                                                <td id="25.8"></td>
+                                                <td id="40.8"></td>
+                                                <td id="41.8"></td>
+                                        </tr>
+                            </tr>
+                            <tr>
+                                <td class="u9">Usuario10</td>
+                                <td id="8.9"></td>
+                                <td id="9.9"></td>
+                                <td id="24.9"></td>
+                                <td id="25.9"></td>
+                                <td id="40.9"></td>
+                                <td id="41.9"></td>
+                                </tr>
+                            
+                            
+                            <td style="background-color:#cdb5ff">RES</td>
+                            <td style="background-color:#cdb5ff" id="res8"> </td>
+                            <td style="background-color:#cdb5ff" id="res9"> </td>
+                            <td style="background-color:#cdb5ff" id="res24"> </td>
+                            <td style="background-color:#cdb5ff" id="res25"> </td>
+                            <td style="background-color:#cdb5ff" id="res40"> </td>
+                            <td style="background-color:#cdb5ff" id="res41"></td>                                     
                                     </tbody>
                                     </table>
                             <br>
@@ -946,10 +1194,10 @@ function groupView(){
                         </div>
                         <div class="w3-half w3-margin-bottom">
                           <div class="w3-container w3-white"id="groupFMatchesDiv">
-                            <p><b>Grupo F</b></p>
+                            <p align="center"><b>Grupo F</b></p>
                             <table class="topazCells">
                                     <col width="60">
-                                    <thead>
+                                    <thead style="background-color:#cdb5ff">
                                     <th>Usuario</th>
                                       <th>ALE MEX</th>
                                       <th>SUE COR</th>
@@ -960,7 +1208,7 @@ function groupView(){
                                      </tr></thead>    
                                 <tbody>
                                     <tr>
-                                    <td id="u0">User1</td>
+                                    <td class="u0">User1</td>
                                     <td id="10.0"></td>
                                     <td id="11.0"></td>
                                     <td id="26.0"></td>
@@ -969,7 +1217,7 @@ function groupView(){
                                     <td id="43.0"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u1">User1</td>
+                                    <td class="u1">User1</td>
                                     <td id="10.1"></td>
                                     <td id="11.1"></td>
                                     <td id="26.1"></td>
@@ -978,7 +1226,7 @@ function groupView(){
                                     <td id="43.1"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u2">User2</td>
+                                    <td class="u2">User2</td>
                                     <td id="10.2"></td>
                                     <td id="11.2"></td>
                                     <td id="26.2"></td>
@@ -987,7 +1235,7 @@ function groupView(){
                                     <td id="43.2"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u3">User3</td>
+                                    <td class="u3">User3</td>
                                     <td id="10.3"></td>
                                     <td id="11.3"></td>
                                     <td id="26.3"></td>
@@ -996,7 +1244,7 @@ function groupView(){
                                     <td id="43.3"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u4">User4</td>
+                                    <td class="u4">User4</td>
                                     <td id="10.4"></td>
                                     <td id="11.4"></td>
                                     <td id="26.4"></td>
@@ -1005,7 +1253,7 @@ function groupView(){
                                     <td id="43.4"></td>
                                     </tr>
                                     <tr>
-                                    <td id="u5">User1</td>
+                                    <td class="u5">User1</td>
                                     <td id="10.5"></td>
                                     <td id="11.5"></td>
                                     <td id="26.5"></td>
@@ -1014,7 +1262,7 @@ function groupView(){
                                     <td id="43.5"></td>
                                     </tr>
                                     <tr>
-                                            <td id="u6">User6</td>
+                                            <td class="u6">User6</td>
                                     <td id="10.6"></td>
                                     <td id="11.6"></td>
                                     <td id="26.6"></td>
@@ -1023,7 +1271,7 @@ function groupView(){
                                     <td id="43.6"></td>
                                             </tr>
                                             <tr>
-                                            <td id="u7">User7</td>
+                                            <td class="u7">User7</td>
                                     <td id="10.7"></td>
                                     <td id="11.7"></td>
                                     <td id="26.7"></td>
@@ -1032,20 +1280,36 @@ function groupView(){
                                     <td id="43.7"></td>
                                             </tr>
                                             <tr>
-                                            <td id="u8">User8</td>
+                                            <td class="u8">User8</td>
                                     <td id="10.8"></td>
                                     <td id="11.8"></td>
                                     <td id="26.8"></td>
                                     <td id="27.8"></td>
                                     <td id="42.8"></td>
                                     <td id="43.8"></td>
-                                            </tr> <td>RES</td>
-                                            <td id="res10"> </td>
-                                            <td id="res11"> </td>
-                                            <td id="res26"> </td>
-                                            <td id="res27"> </td>
-                                            <td id="res42"> </td>
-                                            <td id="res43"></td>                                     
+
+
+                                            </tr> 
+                                            
+                                            
+                                            
+                                            <tr>
+                                                <td class="u9">Usuario10</td>
+                                                <td id="10.9"></td>
+                                                <td id="11.9"></td>
+                                                <td id="26.9"></td>
+                                                <td id="27.9"></td>
+                                                <td id="42.9"></td>
+                                                <td id="43.9"></td>
+                                                </tr>
+                                            
+                                            <td style="background-color:#cdb5ff">RES</td>
+                                            <td style="background-color:#cdb5ff" id="res10"> </td>
+                                            <td style="background-color:#cdb5ff" id="res11"> </td>
+                                            <td style="background-color:#cdb5ff" id="res26"> </td>
+                                            <td style="background-color:#cdb5ff" id="res27"> </td>
+                                            <td style="background-color:#cdb5ff" id="res42"> </td>
+                                            <td style="background-color:#cdb5ff" id="res43"></td>                                     
                                     </tbody>
                                     </table>
                             <br>
@@ -1055,21 +1319,21 @@ function groupView(){
                       <div class="w3-row-padding w3-padding-32" style="margin: -16px">
                             <div class="w3-half w3-margin-bottom">
                               <div class="w3-container w3-white"id="groupGMatchesDiv">
-                                <p><b>Grupo G</b></p>
+                                <p align="center"><b>Grupo G</b></p>
                                 <table class="topazCells">
                                         <col width="60">
-                                        <thead>
+                                        <thead style="background-color:#cdb5ff">
                                         <th>Usuario</th>
                                           <th>BEL PAN</th>
-                                          <th>TUN ING</th>
+                                          <th>TUN ENG</th>
                                           <th>BEL TUN</th>
-                                          <th>ING PAN</th>
-                                          <th>ING BEL</th>
+                                          <th>ENG PAN</th>
+                                          <th>ENG BEL</th>
                                           <th>PAN TUN</th>
                                          </tr></thead>    
                                     <tbody>
                                         <tr>
-                                        <td id="u0">User1</td>
+                                        <td class="u0">User1</td>
                                         <td id="12.0"></td>
                                         <td id="13.0"></td>
                                         <td id="28.0"></td>
@@ -1078,7 +1342,7 @@ function groupView(){
                                         <td id="45.0"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u1">User1</td>
+                                        <td class="u1">User1</td>
                                         <td id="12.1"></td>
                                         <td id="13.1"></td>
                                         <td id="28.1"></td>
@@ -1087,7 +1351,7 @@ function groupView(){
                                         <td id="45.1"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u2">User2</td>
+                                        <td class="u2">User2</td>
                                         <td id="12.2"></td>
                                         <td id="13.2"></td>
                                         <td id="28.2"></td>
@@ -1096,7 +1360,7 @@ function groupView(){
                                         <td id="45.2"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u3">User3</td>
+                                        <td class="u3">User3</td>
                                         <td id="12.3"></td>
                                         <td id="13.3"></td>
                                         <td id="28.3"></td>
@@ -1105,7 +1369,7 @@ function groupView(){
                                         <td id="45.3"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u4">User4</td>
+                                        <td class="u4">User4</td>
                                         <td id="12.4"></td>
                                         <td id="13.4"></td>
                                         <td id="28.4"></td>
@@ -1114,7 +1378,7 @@ function groupView(){
                                         <td id="45.4"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u5">User1</td>
+                                        <td class="u5">User1</td>
                                         <td id="12.5"></td>
                                         <td id="13.5"></td>
                                         <td id="28.5"></td>
@@ -1123,7 +1387,7 @@ function groupView(){
                                         <td id="45.5"></td>
                                         </tr>
                                         <tr>
-                                                <td id="u6">User6</td>
+                                                <td class="u6">User6</td>
                                                 <td id="12.6"></td>
                                                 <td id="13.6"></td>
                                                 <td id="28.6"></td>
@@ -1132,7 +1396,7 @@ function groupView(){
                                                 <td id="45.6"></td>
                                                 </tr>
                                                 <tr>
-                                                <td id="u7">User7</td>
+                                                <td class="u7">User7</td>
                                                 <td id="12.6"></td>
                                         <td id="13.6"></td>
                                         <td id="28.6"></td>
@@ -1141,20 +1405,34 @@ function groupView(){
                                         <td id="45.6"></td>
                                                 </tr>
                                                 <tr>
-                                                <td id="u8">User8</td>
+                                                <td class="u8">User8</td>
                                                 <td id="12.7"></td>
                                         <td id="13.7"></td>
                                         <td id="28.7"></td>
                                         <td id="29.7"></td>
                                         <td id="44.7"></td>
                                         <td id="45.7"></td>
-                                                </tr>   <td>RES</td>
-                                                <td id="res12"> </td>
-                                                <td id="res13"> </td>
-                                                <td id="res28"> </td>
-                                                <td id="res29"> </td>
-                                                <td id="res44"> </td>
-                                                <td id="res45"></td>                                      
+                                                </tr>   
+                                                
+                                                
+                                                <tr>
+                                                    <td class="u9">Usuario10</td>
+                                                    <td id="12.9"></td>
+                                                    <td id="13.9"></td>
+                                                    <td id="28.9"></td>
+                                                    <td id="29.9"></td>
+                                                    <td id="44.9"></td>
+                                                    <td id="45.9"></td>
+                                                    </tr>
+                                                
+                                                
+                                                <td style="background-color:#cdb5ff">RES</td>
+                                                <td style="background-color:#cdb5ff" id="res12"> </td>
+                                                <td style="background-color:#cdb5ff" id="res13"> </td>
+                                                <td style="background-color:#cdb5ff" id="res28"> </td>
+                                                <td style="background-color:#cdb5ff" id="res29"> </td>
+                                                <td style="background-color:#cdb5ff" id="res44"> </td>
+                                                <td style="background-color:#cdb5ff" id="res45"></td>                                      
                                         </tbody>
                                         </table>
                                 <br>
@@ -1162,10 +1440,10 @@ function groupView(){
                             </div>
                             <div class="w3-half w3-margin-bottom">
                               <div class="w3-container w3-white"id="groupHMatchesDiv">
-                                <p><b>Grupo H</b></p>
+                                <p align="center"><b>Grupo H</b></p>
                                 <table class="topazCells">
                                         <col width="60">
-                                        <thead>
+                                        <thead style="background-color:#cdb5ff">
                                         <th>Usuario</th>
                                           <th>POL SEN</th>
                                           <th>COL JAP</th>
@@ -1176,7 +1454,7 @@ function groupView(){
                                          </tr></thead>    
                                     <tbody>
                                         <tr>
-                                        <td id="u0">User1</td>
+                                        <td class="u0">User1</td>
                                         <td id="14.0"></td>
                                         <td id="15.0"></td>
                                         <td id="30.0"></td>
@@ -1185,7 +1463,7 @@ function groupView(){
                                         <td id="47.0"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u1">User1</td>
+                                        <td class="u1">User1</td>
                                         <td id="14.1"></td>
                                         <td id="15.1"></td>
                                         <td id="30.1"></td>
@@ -1194,7 +1472,7 @@ function groupView(){
                                         <td id="47.1"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u2">User2</td>
+                                        <td class="u2">User2</td>
                                         <td id="14.2"></td>
                                         <td id="15.2"></td>
                                         <td id="30.2"></td>
@@ -1203,7 +1481,7 @@ function groupView(){
                                         <td id="47.2"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u3">User3</td>
+                                        <td class="u3">User3</td>
                                         <td id="14.3"></td>
                                         <td id="15.3"></td>
                                         <td id="30.3"></td>
@@ -1212,7 +1490,7 @@ function groupView(){
                                         <td id="47.3"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u4">User4</td>
+                                        <td class="u4">User4</td>
                                         <td id="14.4"></td>
                                         <td id="15.4"></td>
                                         <td id="30.4"></td>
@@ -1221,7 +1499,7 @@ function groupView(){
                                         <td id="47.4"></td>
                                         </tr>
                                         <tr>
-                                        <td id="u5">User1</td>
+                                        <td class="u5">User1</td>
                                         <td id="14.5"></td>
                                         <td id="15.5"></td>
                                         <td id="30.5"></td>
@@ -1230,7 +1508,7 @@ function groupView(){
                                         <td id="47.5"></td>
                                         </tr>
                                         <tr>
-                                                <td id="u6">User6</td>
+                                                <td class="u6">User6</td>
                                         <td id="14.6"></td>
                                         <td id="15.6"></td>
                                         <td id="30.6"></td>
@@ -1239,7 +1517,7 @@ function groupView(){
                                         <td id="47.6"></td>
                                                 </tr>
                                                 <tr>
-                                                <td id="u7">User7</td>
+                                                <td class="u7">User7</td>
                                         <td id="14.7"></td>
                                         <td id="15.7"></td>
                                         <td id="30.7"></td>
@@ -1248,20 +1526,34 @@ function groupView(){
                                         <td id="47.7"></td>
                                                 </tr>
                                                 <tr>
-                                                <td id="u8">User8</td>
+                                                <td class="u8">User8</td>
                                                 <td id="14.8"></td>
                                         <td id="15.8"></td>
                                         <td id="30.8"></td>
                                         <td id="31.8"></td>
                                         <td id="46.8"></td>
                                         <td id="47.8"></td>
-                                                </tr> <td>RES</td>
-                                                <td id="res14"> </td>
-                                                <td id="res15"> </td>
-                                                <td id="res30"> </td>
-                                                <td id="res31"> </td>
-                                                <td id="res46"> </td>
-                                                <td id="res47"></td>                                         
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="u9">Usuario10</td>
+                                                    <td id="14.9"></td>
+                                                    <td id="15.9"></td>
+                                                    <td id="30.9"></td>
+                                                    <td id="31.9"></td>
+                                                    <td id="46.9"></td>
+                                                    <td id="47.9"></td>
+                                                    </tr>
+
+
+
+                                                <td style="background-color:#cdb5ff">RES</td>
+                                                <td style="background-color:#cdb5ff" id="res14"> </td>
+                                                <td style="background-color:#cdb5ff" id="res15"> </td>
+                                                <td style="background-color:#cdb5ff" id="res30"> </td>
+                                                <td style="background-color:#cdb5ff" id="res31"> </td>
+                                                <td style="background-color:#cdb5ff" id="res46"> </td>
+                                                <td style="background-color:#cdb5ff" id="res47"></td>                                         
                                         </tbody>
                                         </table>
                                 <br>
@@ -1274,11 +1566,7 @@ function groupView(){
         </div>
         
   
-        <ul class="w3-ul w3-border w3-white w3-text-grey">
-          <li class="w3-padding">September <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-          <li class="w3-padding">October <span class="w3-tag w3-red w3-margin-left">Sold out</span></li>
-          <li class="w3-padding">November <span class="w3-badge w3-right w3-margin-right">3</span></li>
-        </ul>
+       
   
         
       </div>
@@ -1293,12 +1581,7 @@ function groupView(){
   
   <!-- Footer -->
   <footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
+
     <p class="w3-medium">Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
   </footer>
 
