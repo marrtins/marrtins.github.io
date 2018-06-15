@@ -64,7 +64,7 @@ table.greenTable {
   font-family: "Lato" sans-serif;
   border: 6px solid #24943A;
   background-color: #D4EED1;
-  width: 30%;
+  width: 40%;
   
   
 }
@@ -142,7 +142,7 @@ table.greenTable tfoot .links a{
      played1=0;
      lastM=0;
      data1=null;
-    $.getJSON('https://raw.githubusercontent.com/marrtins/datapr/master/getData.json', function(datax) {
+    $.getJSON('https://rawgit.com/jonhue/fifa-worldcup-2018/master/data.json', function(datax) {
         played1 = getPlayedMatches(datax);
         data1=datax;
         
@@ -334,9 +334,12 @@ function setPointsTable(userData){
         userpointsList.push(up);
     }
     userpointsList.sort(function matchSort(a,b){
-        return b.points > a.points? 1 
+        /*return b.points > a.points? 1 
             :b.id<a.id?-1
-            : 0;
+            : 0;*/
+        if(b.points>a.points) return 1;
+        if(b.points<a.points) return -1;
+        return 0;
     });
     return userpointsList;
 }
