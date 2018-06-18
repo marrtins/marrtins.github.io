@@ -435,7 +435,7 @@ function parseMatches(groupMatches,teams){
         if(match.finished){
             if(groupMatches[i].home_result > groupMatches[i].away_result ){
                 match.winner=  "home";
-                match.winnerName=teams[match.home_team_id-1].fifaCode;
+                match.winnerName=parseFifaCode(teams[match.home_team_id-1].fifaCode);
             }else if(groupMatches[i].home_result < groupMatches[i].away_result ){
                 match.winner="away";
                 match.winnerName=parseFifaCode(teams[match.away_team_id-1].fifaCode);
