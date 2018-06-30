@@ -171,6 +171,7 @@ table.greenTable tfoot .links a{
     groupFMatches=parseMatches(data.groups.f.matches,teams);
     groupGMatches=parseMatches(data.groups.g.matches,teams);
     groupHMatches=parseMatches(data.groups.h.matches,teams);
+	sixtMatches = parseMatches(data.knockout.round_16.matches,teams);
     /*showMatches(groupAMatches,'groupAMatchesDiv');
     showMatches(groupBMatches,'groupBMatchesDiv');
     showMatches(groupCMatches,'groupCMatchesDiv');
@@ -179,7 +180,7 @@ table.greenTable tfoot .links a{
     showMatches(groupFMatches,'groupFMatchesDiv');
     showMatches(groupGMatches,'groupGMatchesDiv');
     showMatches(groupHMatches,'groupHMatchesDiv');*/
-    allMatches=groupAMatches.concat(groupBMatches,groupCMatches,groupDMatches,groupEMatches,groupFMatches,groupGMatches,groupHMatches)
+    allMatches=groupAMatches.concat(groupBMatches,groupCMatches,groupDMatches,groupEMatches,groupFMatches,groupGMatches,groupHMatches,sixtMatches)
     allMatches.sort(function matchSort(a,b){
         return b.id < a.id? 1 
             :b.id>a.id?-1
@@ -192,7 +193,8 @@ table.greenTable tfoot .links a{
     var x2 = document.getElementById("tablapiola").getElementsByTagName("td");
     x3 = document.getElementById("tablapiola").getElementsByTagName("td");
     fillCells2(userData);
-    colorCells(userData,allMatches);
+    
+	colorCells(userData,allMatches);
     
     pointsTable=setPointsTable(userData);
     var idAux="";
@@ -222,7 +224,7 @@ function fillCells2(udata2){
     idAux="";
     o=0;
     id2="";
-    for(var i=0;i<userData.length;i++){
+    for(var i=0;	i<userData.length;i++){
         predictions=userData[i].predictions
         id2="u"+i;
         //var list=document.getElementsByClassName(id2).innerHTML=userData[i].username
@@ -231,7 +233,7 @@ function fillCells2(udata2){
         for(var q = 0;q<list.length;q++){
             list[q].innerHTML=userData[i].username;
         }
-        while(o<48){
+        while(o<56){
             winnerTeam = predictions[o];
             idAux=o.toString()+"."+i.toString();
             if(document.getElementById(idAux)!=null){
@@ -279,7 +281,7 @@ function fillCells(userData){
         predictions=userData[i].predictions
         id2="u"+i;
         document.getElementById(id2).innerHTML=userData[i].username
-        while(o<47){
+        while(o<55){
             winnerTeam = predictions[o].result;
             idAux=o.toString()+"."+i.toString();
             if(document.getElementById(idAux)!=null){
@@ -322,6 +324,7 @@ function colorCells(userData,allMatches){
 
         }
     }
+	
 
 
 }
@@ -351,7 +354,7 @@ var userList=[]
         user = new Object();
         user.username = data[i].username;
         user.predictions=[];
-        for(var j =0;j<48;j++){
+        for(var j =0;j<56;j++){
             var num = data[i][j]
             user.predictions[j]=data[i][j];
         }
@@ -400,9 +403,11 @@ function setUserPoints2(predictions,allMatches){
     var points=0;
     for(var i = 0;i<allMatches.length;i++){        
         //item.appendChild(document.createTextNode(predictions[i].Home +" VS " + allMatches[i].away_team_name + " Prediction: " +predictions[i].result ));
-        if(allMatches[i].winner!=null && predictions[i] == allMatches[i].winnerName){
-            points++;
-        }
+        
+			if(allMatches[i].winner!=null && predictions[i] == allMatches[i].winnerName){
+				points++;
+			}
+		
     }
     return points;
     
@@ -440,6 +445,7 @@ function parseMatches(groupMatches,teams){
                 match.winner="away";
                 match.winnerName=parseFifaCode(teams[match.away_team_id-1].fifaCode);
             }else{
+
                 match.winner="draw";
                 match.winnerName="EMP";
             }
@@ -629,126 +635,126 @@ function groupView(){
                         <tbody>
                             <tr>
                             <td class="Ou0">User1</td>
-                            <td id="O0.0"></td>
-                            <td id="O1.0"></td>
-                            <TD ID="O2.0"></td>
-                            <TD ID="O3.0"></td>
-                            <TD ID="O4.0"></td>
-                            <TD ID="O5.0"></td>
-                            <TD ID="O6.0"></td>
-                            <TD ID="O7.0"></td>
+                            <td id="49.0">FRA</td>
+                            <td id="48.0">URU</td>
+                            <TD ID="50.0">ESP</td>
+                            <TD ID="51.0">CRO</td>
+                            <TD ID="52.0">BRA</td>
+                            <TD ID="53.0">BEL</td>
+                            <TD ID="54.0">SUE</td>
+                            <TD ID="55.0">ING</td>
                             </tr>
                             <tr>
                             <td class="u1">Usuario2</td>
-                            <td id="O0.1"></td>
-                            <td id="O1.1"></td>
-                            <TD ID="O2.1"></td>
-                            <TD ID="O3.1"></td>
-                            <TD ID="O4.1"></td>
-                            <TD ID="O5.1"></td>
-                            <TD ID="O6.1"></td>
-                            <TD ID="O7.1"></td>
+                            <td id="49.1">FRA</td>
+                            <td id="48.1">POR</td>
+                            <TD ID="50.1"></td>
+                            <TD ID="51.1"></td>
+                            <TD ID="52.1"></td>
+                            <TD ID="53.1"></td>
+                            <TD ID="54.1">BEL</td>
+                            <TD ID="55.1">SUI</td>
                             </tr>
                             <tr>
                             <td class="u2">Usuario3</td>
-                            <td id="O0.2"></td>
-                            <td id="O1.2"></td>
-                            <TD ID="O2.2"></td>
-                            <TD ID="O3.2"></td>
-                            <TD ID="O4.2"></td>
-                            <TD ID="O5.2"></td>
-                            <TD ID="O6.2"></td>
-                            <TD ID="O7.2"></td>
+                            <td id="49.2">ARG</td>
+                            <td id="48.2">POR</td>
+                            <TD ID="50.2"></td>
+                            <TD ID="51.2"></td>
+                            <TD ID="52.2"></td>
+                            <TD ID="53.2"></td>
+                            <TD ID="54.2">SUE</td>
+                            <TD ID="55.2">ING</td>
                             
                             </tr>
                             <tr>
                             <td class="u3">Usuario4</td>
-                            <td id="O0.3"></td>
-                            <td id="O1.3"></td>
-                            <TD ID="O2.3"></td>
-                            <TD ID="O3.3"></td>
-                            <TD ID="O4.3"></td>
-                            <TD ID="O5.3"></td>
-                            <TD ID="O6.3"></td>
-                            <TD ID="O7.3"></td>
+                            <td id="49.3">ARG</td>
+                            <td id="48.3">POR</td>
+                            <TD ID="50.3"></td>
+                            <TD ID="51.3"></td>
+                            <TD ID="52.3"></td>
+                            <TD ID="53.3"></td>
+                            <TD ID="54.3">SUI</td>
+                            <TD ID="55.3">COL</td>
                             </tr>
                             <tr>
                             <td class="u4">Usuario5</td>
-                            <td id="O0.4"></td>
-                            <td id="O1.4"></td>
-                            <TD ID="O2.4"></td>
-                            <TD ID="O3.4"></td>
-                            <TD ID="O4.4"></td>
-                            <TD ID="O5.4"></td>
-                            <TD ID="O6.4"></td>
-                            <TD ID="O7.4"></td>
+                            <td id="49.4">ARG</td>
+                            <td id="48.4">URU</td>
+                            <TD ID="50.4"></td>
+                            <TD ID="51.4"></td>
+                            <TD ID="52.4"></td>
+                            <TD ID="53.4"></td>
+                            <TD ID="54.4">SUE</td>
+                            <TD ID="55.4">ING</td>
                             </tr>
                             <tr>
                             <td class="u5">Usuario6</td>
-                            <td id="O0.5"></td>
-                            <td id="O1.5"></td>
-                            <TD ID="O2.5"></td>
-                            <TD ID="O3.5"></td>
-                            <TD ID="O4.5"></td>
-                            <TD ID="O5.5"></td>
-                            <TD ID="O6.5"></td>
-                            <TD ID="O7.5"></td>
+                            <td id="49.5">ARG</td>
+                            <td id="48.5">URU</td>
+                            <TD ID="50.5"></td>
+                            <TD ID="51.5"></td>
+                            <TD ID="52.5"></td>
+                            <TD ID="53.5"></td>
+                            <TD ID="54.5">SUE</td>
+                            <TD ID="55.5">ING</td>
                             </tr>
                             <tr>
                             <td class="u6">Usuario7</td>
-                            <td id="O0.6"></td>
-                            <td id="O1.6"></td>
-                            <TD ID="O2.6"></td>
-                            <TD ID="O3.6"></td>
-                            <TD ID="O4.6"></td>
-                            <TD ID="O5.6"></td>
-                            <TD ID="O6.6"></td>
-                            <TD ID="O7.6"></td>
+                            <td id="49.6">ARG</td>
+                            <td id="48.6">URU</td>
+                            <TD ID="50.6"></td>
+                            <TD ID="51.6"></td>
+                            <TD ID="52.6"></td>
+                            <TD ID="53.6"></td>
+                            <TD ID="54.6">SUE</td>
+                            <TD ID="55.6">ING</td>
                             </tr>
                             <tr>
                             <td class="u7">Usuario8</td>
-                            <td id="O0.7"></td>
-                            <td id="O1.7"></td>
-                            <TD ID="O2.7"></td>
-                            <TD ID="O3.7"></td>
-                            <TD ID="O4.7"></td>
-                            <TD ID="O5.7"></td>
-                            <TD ID="O6.7"></td>
-                            <TD ID="O7.7"></td>
+                            <td id="49.7">ARG</td>
+                            <td id="48.7">URU</td>
+                            <TD ID="50.7"></td>
+                            <TD ID="51.7"></td>
+                            <TD ID="52.7"></td>
+                            <TD ID="53.7"></td>
+                            <TD ID="54.7">SUI</td>
+                            <TD ID="55.7">COL</td>
                             </tr>
                             <tr>
                             <td class="u8">Usuario9</td>
-                            <td id="O0.8"></td>
-                            <td id="O1.8"></td>
-                            <TD ID="O2.8"></td>
-                            <TD ID="O3.8"></td>
-                            <TD ID="O4.8"></td>
-                            <TD ID="O5.8"></td>
-                            <TD ID="O6.8"></td>
-                            <TD ID="O7.8"></td>    
+                            <td id="49.8">ARG</td>
+                            <td id="48.8">URU</td>
+                            <TD ID="50.8"></td>
+                            <TD ID="51.8"></td>
+                            <TD ID="52.8"></td>
+                            <TD ID="53.8"></td>
+                            <TD ID="54.8">SUI</td>
+                            <TD ID="55.8">COL</td>    
                             </tr>
                             <tr>
                             <td class="u9">Usuario10</td>
-                            <td id="O0.9"></td>
-                            <td id="O1.9"></td>
-                            <TD ID="O2.9"></td>
-                            <TD ID="O3.9"></td>
-                            <TD ID="O4.9"></td>
-                            <TD ID="O5.9"></td>
-                            <TD ID="O6.9"></td>
-                            <TD ID="O7.9"></td>
+                            <td id="49.9">ARG</td>
+                            <td id="48.9">URU</td>
+                            <TD ID="50.9"></td>
+                            <TD ID="51.9"></td>
+                            <TD ID="52.9"></td>
+                            <TD ID="53.9"></td>
+                            <TD ID="54.9">SUE</td>
+                            <TD ID="55.9">ING</td>
                             </tr>
 
                             <tr>
                             <td style="background-color:#cdb5ff">RES</td>
-                            <td style="background-color:#cdb5ff" id="resO0"> </td>
-                            <td style="background-color:#cdb5ff" id="resO1"> </td>
-                            <td style="background-color:#cdb5ff" id="resO2"> </td>
-                            <td style="background-color:#cdb5ff" id="resO3"> </td>
-                            <td style="background-color:#cdb5ff" id="resO4"> </td>
-                            <td style="background-color:#cdb5ff" id="resO5"></td>
-                            <td style="background-color:#cdb5ff" id="resO6"></td>
-                            <td style="background-color:#cdb5ff" id="resO7"></td>
+                            <td style="background-color:#cdb5ff" id="res49"> </td>
+                            <td style="background-color:#cdb5ff" id="res48"> </td>
+                            <td style="background-color:#cdb5ff" id="res50"> </td>
+                            <td style="background-color:#cdb5ff" id="res51"> </td>
+                            <td style="background-color:#cdb5ff" id="res52"> </td>
+                            <td style="background-color:#cdb5ff" id="res53"></td>
+                            <td style="background-color:#cdb5ff" id="res54"></td>
+                            <td style="background-color:#cdb5ff" id="res55"></td>
                             </tr>                        
                             
                             </tbody>
