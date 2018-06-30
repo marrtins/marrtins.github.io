@@ -49,6 +49,14 @@ var prono =
           "45": "TUN",
           "46": "POL",
           "47": "COL",
+		  "49":"FRA",
+		  "48":"URU",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"SUE",
+		  "55":"ENG",
           "username": "Piojo"
         },
         {
@@ -100,6 +108,14 @@ var prono =
           "45": "PAN",
           "46": "POL",
           "47": "COL",
+		  "48":"POR",
+		  "49":"FRA",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"BEL",
+		  "55":"SUI",
           "username": "Santi"
         },
         {
@@ -151,6 +167,14 @@ var prono =
           "45": "EMP",
           "46": "EMP",
           "47": "COL",
+		  "48":"POR",
+		  "49":"ARG",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"SUE",
+		  "55":"ENG",
           "username": "Pochi"
         },
         {
@@ -202,6 +226,14 @@ var prono =
           "45": "TUN",
           "46": "POL",
           "47": "COL",
+		  "48":"ARG",
+		  "49":"POR",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"SUI",
+		  "55":"COL",
           "username": "Fede P."
         },
         {
@@ -253,6 +285,14 @@ var prono =
           "45": "TUN",
           "46": "POL",
           "47": "EMP",
+		  "48":"URU",
+		  "49":"ARG",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"SUE",
+		  "55":"ENG",
           "username": "Pato"
         },
         {
@@ -304,6 +344,14 @@ var prono =
           "45": "TUN",
           "46": "EMP",
           "47": "COL",
+		  "48":"URU",
+		  "49":"ARG",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"SUE",
+		  "55":"ENG",
           "username": "Conejo"
         },
         {
@@ -355,6 +403,14 @@ var prono =
           "45": "TUN",
           "46": "POL",
           "47": "COL",
+		  "48":"URU",
+		  "49":"ARG",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"SUE",
+		  "55":"ENG",
           "username": "Fede M"
         },
         {
@@ -406,6 +462,14 @@ var prono =
           "45": "TUN",
           "46": "POL",
           "47": "COL",
+		  "48":"URU",
+		  "49":"ARG",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"SUI",
+		  "55":"COL",
           "username": "Jose"
         },
         {
@@ -457,6 +521,14 @@ var prono =
           "45": "EMP",
           "46": "POL",
           "47": "COL",
+		  "48":"URU",
+		  "49":"ARG",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"SUI",
+		  "55":"COL",
           "username": "Juanma"
         },
         {
@@ -508,6 +580,14 @@ var prono =
           "45": "EMP",
           "46": "EMP",
           "47": "COL",
+		  "48":"URU",
+		  "49":"ARG",
+		  "50":"ESP",
+		  "51":"CRO",
+		  "52":"BRA",
+		  "53":"BEL",
+		  "54":"SUE",
+		  "55":"ENG",
           "username": "Ogro"
         }
       
