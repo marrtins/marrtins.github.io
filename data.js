@@ -114,8 +114,8 @@ var prono =
 		  "51":"CRO",
 		  "52":"BRA",
 		  "53":"BEL",
-		  "54":"BEL",
-		  "55":"SUI",
+		  "54":"SUI",
+		  "55":"COL",
           "username": "Santi"
         },
         {

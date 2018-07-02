@@ -142,11 +142,7 @@ table.greenTable tfoot .links a{
      played1=0;
      lastM=0;
      data1=null;
-    $.getJSON('https://rawgit.com/jonhue/fifa-worldcup-2018/master/data.json', function(datax) {
-        played1 = getPlayedMatches(datax);
-        data1=datax;
-        
-    });
+   
         
     $.getJSON('https://raw.githubusercontent.com/lsv/fifa-worldcup-2018/master/data.json', function(data2) {
     //$.getJSON('https://raw.githubusercontent.com/marrtins/datapr/master/getData.json', function(data) {//document.getElementById("demo2").innerHTML = data.groups.a.matches[5].name;
@@ -171,7 +167,8 @@ table.greenTable tfoot .links a{
     groupFMatches=parseMatches(data.groups.f.matches,teams);
     groupGMatches=parseMatches(data.groups.g.matches,teams);
     groupHMatches=parseMatches(data.groups.h.matches,teams);
-	sixtMatches = parseMatches(data.knockout.round_16.matches,teams);
+    
+	sixtMatches = parseMatchesKO(data.knockout.round_16.matches,teams);
     /*showMatches(groupAMatches,'groupAMatchesDiv');
     showMatches(groupBMatches,'groupBMatchesDiv');
     showMatches(groupCMatches,'groupCMatchesDiv');
@@ -426,6 +423,27 @@ function setUserPoints(predictions,allMatches){
     return points;
     
 }
+function parseMatchesKO(groupMatches,teams){
+    var matchList=[];
+    for(var i = 0;i<groupMatches.length;i++){
+        var match =new Object();
+        match.id = groupMatches[i].name;
+        match.home_team_id=groupMatches[i].home_team;
+        match.home_team_name=teams[match.home_team_id-1].name;
+        match.away_team_id=groupMatches[i].away_team;
+        match.away_team_name=teams[match.away_team_id-1].name;
+        match.finished = groupMatches[i].finished;
+        match.date = groupMatches[i].date;
+        if(match.finished){
+            match.winner ="0";
+            match.winnerName=parseFifaCode(teams[groupMatches[i].winner-1].fifaCode);
+        }else{
+            match.winner=null;
+        }
+    matchList.push(match);
+    }
+    return matchList;  
+}
 function parseMatches(groupMatches,teams){
     var matchList=[];
     for(var i = 0;i<groupMatches.length;i++){
@@ -628,13 +646,13 @@ function groupView(){
                             <th>ESP RUS </th>
                             <th>CRO DIN </th>
                             <th>BRA MEX </th>
-                            <th>SUE SUI</th>
                             <th>BEL JAP</th>
+                            <th>SUE SUI</th>
                             <th>COL ENG</th>
                              </tr></thead>    
                         <tbody>
                             <tr>
-                            <td class="Ou0">User1</td>
+                            <td class="Ou0">Piojo</td>
                             <td id="49.0">FRA</td>
                             <td id="48.0">URU</td>
                             <TD ID="50.0">ESP</td>
