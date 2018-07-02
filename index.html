@@ -439,9 +439,23 @@ function parseMatchesKO(groupMatches,teams){
         match.finished = groupMatches[i].finished;
         match.date = groupMatches[i].date;
         if(match.finished){
-            match.winner ="0";
-            match.winnerName=parseFifaCode(teams[groupMatches[i].winner-1].fifaCode);
-        }else{
+            
+            if(groupMatches[i].winner!=null){
+                match.winner ="0";
+                match.winnerName=parseFifaCode(teams[groupMatches[i].winner-1].fifaCode);
+            }else{
+                if(groupMatches[i].home_result > groupMatches[i].away_result ){
+                    match.winner=  "home";
+                    match.winnerName=parseFifaCode(teams[match.home_team_id-1].fifaCode);
+                }
+                else if(groupMatches[i].home_result < groupMatches[i].away_result ){
+                    match.winner="away";
+                    match.winnerName=parseFifaCode(teams[match.away_team_id-1].fifaCode);
+                }   
+            
+            }
+        }
+        else{
             match.winner=null;
         }
     matchList.push(match);
