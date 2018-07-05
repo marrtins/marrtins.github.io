@@ -59,8 +59,8 @@ var prono =
           "55":"ENG",
           "56":"FRA",
           "57":"BRA",
-          "58":"ENG",
-          "59":"CRO",
+          "59":"ENG",
+          "58":"CRO",
           "username": "Piojo"
         },
         {
@@ -122,8 +122,8 @@ var prono =
           "55":"COL",
           "56":"FRA",
           "57":"BRA",
-          "58":"SUE",
-          "59":"CRO",
+          "59":"SUE",
+          "58":"CRO",
           "username": "Santi"
         },
         {
@@ -185,8 +185,8 @@ var prono =
           "55":"ENG",
           "56":"URU",
           "57":"BEL",
-          "58":"SUE",
-          "59":"RUS",
+          "59":"SUE",
+          "58":"RUS",
           "username": "Pochi"
         },
         {
@@ -248,8 +248,8 @@ var prono =
           "55":"COL",
           "56":"FRA",
           "57":"BRA",
-          "58":"ENG",
-          "59":"CRO",
+          "59":"ENG",
+          "58":"CRO",
           "username": "Fede P."
         },
         {
@@ -311,8 +311,8 @@ var prono =
           "55":"ENG",
           "56":"FRA",
           "57":"BRA",
-          "58":"ENG",
-          "59":"CRO",
+          "59":"ENG",
+          "58":"CRO",
           "username": "Pato"
         },
         {
@@ -374,8 +374,8 @@ var prono =
           "55":"ENG",
           "56":"FRA",
           "57":"BRA",
-          "58":"ENG",
-          "59":"CRO",
+          "59":"ENG",
+          "58":"CRO",
           "username": "Conejo"
         },
         {
@@ -437,8 +437,8 @@ var prono =
           "55":"ENG",
           "56":"FRA",
           "57":"BRA",
-          "58":"ENG",
-          "59":"CRO",
+          "59":"ENG",
+          "58":"CRO",
           "username": "Fede M"
         },
         {
@@ -500,8 +500,8 @@ var prono =
           "55":"COL",
           "56":"FRA",
           "57":"BRA",
-          "58":"ENG",
-          "59":"RUS",
+          "59":"ENG",
+          "58":"RUS",
           "username": "Jose"
         },
         {
@@ -563,8 +563,8 @@ var prono =
           "55":"COL",
           "56":"URU",
           "57":"BRA",
-          "58":"ENG",
-          "59":"CRO",
+          "59":"ENG",
+          "58":"CRO",
           "username": "Juanma"
         },
         {
@@ -626,8 +626,8 @@ var prono =
           "55":"ENG",
           "56":"FRA",
           "57":"BRA",
-          "58":"ENG",
-          "59":"CRO",
+          "59":"ENG",
+          "58":"CRO",
           "username": "Ogro"
         }
       
