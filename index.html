@@ -170,6 +170,8 @@ table.greenTable tfoot .links a{
     
     sixtMatches = parseMatchesKO(data.knockout.round_16.matches,teams);
     ctsMatches = parseMatchesKO(data.knockout.round_8.matches,teams);
+    semMatches = parseMatchesKO(data.knockout.round_4.matches,teams);
+    //finaMatches = parseMatchesKO(data.knockout.round_8.matches,teams);
     /*showMatches(groupAMatches,'groupAMatchesDiv');
     showMatches(groupBMatches,'groupBMatchesDiv');
     showMatches(groupCMatches,'groupCMatchesDiv');
@@ -178,7 +180,7 @@ table.greenTable tfoot .links a{
     showMatches(groupFMatches,'groupFMatchesDiv');
     showMatches(groupGMatches,'groupGMatchesDiv');
     showMatches(groupHMatches,'groupHMatchesDiv');*/
-    allMatches=groupAMatches.concat(groupBMatches,groupCMatches,groupDMatches,groupEMatches,groupFMatches,groupGMatches,groupHMatches,sixtMatches,ctsMatches)
+    allMatches=groupAMatches.concat(groupBMatches,groupCMatches,groupDMatches,groupEMatches,groupFMatches,groupGMatches,groupHMatches,sixtMatches,ctsMatches,semMatches)
     allMatches.sort(function matchSort(a,b){
         return b.id < a.id? 1 
             :b.id>a.id?-1
@@ -231,7 +233,7 @@ function fillCells2(udata2){
         for(var q = 0;q<list.length;q++){
             list[q].innerHTML=userData[i].username;
         }
-        while(o<60){
+        while(o<62){
             winnerTeam = predictions[o];
             idAux=o.toString()+"."+i.toString();
             if(document.getElementById(idAux)!=null){
@@ -257,6 +259,8 @@ function getPlayedMatches(data){
     finished +=finishedByGroup(data.groups.h.matches);
     
     finished +=finishedByGroup(data.knockout.round_16.matches);
+    finished +=finishedByGroup(data.knockout.round_8.matches);
+    finished +=finishedByGroup(data.knockout.round_4.matches);
 
 
    
@@ -356,7 +360,7 @@ var userList=[]
         user = new Object();
         user.username = data[i].username;
         user.predictions=[];
-        for(var j =0;j<60;j++){
+        for(var j =0;j<62;j++){
             var num = data[i][j]
             user.predictions[j]=data[i][j];
         }
@@ -654,6 +658,115 @@ function groupView(){
             <div class="w3-row-padding w3-padding-32" style="margin:0 -16px">
                 
 
+
+
+                <div class=" w3-margin-bottom">
+                    <div class="w3-container w3-white text-center"id="groupAMatchesDiv">
+                      <p align="center"><b>FASE FINAL</b></p>
+                      <table class="topazCells" id="tablapiola">
+                              <col width="60">
+                              <thead style="background-color:#cdb5ff">
+                              <th >Usuario</th>
+                              <th>FRA BEL  </th>
+                              <th>ENG CRO </th>
+                              <th>3° y 4° </th>
+                              <th>FINAL </th>
+                             
+                               </tr></thead>    
+                          <tbody>
+                              <tr>
+                              <td class="u0">Piojo</td>
+                              <td id="60.0"></td>
+                              <td id="61.0"></td>
+                              <TD ID="62.0"></td>
+                              <TD ID="63.0"></td>
+                              
+                              </tr>
+                              <tr>
+                              <td class="u1">Usuario2</td>
+                              <td id="60.1"></td>
+                              <td id="61.1"></td>
+                              <TD ID="62.1"></td>
+                              <TD ID="63.1"></td>
+                              </tr>
+                              <tr>
+                              <td class="u2">Usuario3</td>
+                              <td id="60.2"></td>
+                              <td id="61.2"></td>
+                              <TD ID="62.2"></td>
+                              <TD ID="63.2"></td>
+                              
+                              </tr>
+                              <tr>
+                              <td class="u3">Usuario4</td>
+                              <td id="60.3"></td>
+                              <td id="61.3"></td>
+                              <TD ID="62.3"></td>
+                              <TD ID="63.3"></td>
+                              
+                              </tr>
+                              <tr>
+                              <td class="u4">Usuario5</td>
+                              <td id="60.4"></td>
+                              <td id="61.4"></td>
+                              <TD ID="62.4"></td>
+                              <TD ID="63.4"></td>
+                              
+                              </tr>
+                              <tr>
+                              <td class="u5">Usuario6</td>
+                              <td id="60.5"></td>
+                              <td id="61.5"></td>
+                              <TD ID="62.5"></td>
+                              <TD ID="63.5"></td>
+                              
+                              </tr>
+                              <tr>
+                              <td class="u6">Usuario7</td>
+                              <td id="60.6"></td>
+                              <td id="61.6"></td>
+                              <TD ID="62.6"></td>
+                              <TD ID="63.6"></td>
+                              
+                              </tr>
+                              <tr>
+                              <td class="u7">Usuario8</td>
+                              <td id="60.7"></td>
+                              <td id="61.7"></td>
+                              <TD ID="62.7"></td>
+                              <TD ID="63.7"></td>
+                              
+                              </tr>
+                              <tr>
+                              <td class="u8">Usuario9</td>
+                              <td id="60.8"></td>
+                              <td id="61.8"></td>
+                              <TD ID="62.8"></td>
+                              <TD ID="63.8"></td>
+                                 
+                              </tr>
+                              <tr>
+                              <td class="u9">Usuario10</td>
+                              <td id="60.9"></td>
+                              <td id="61.9"></td>
+                              <TD ID="62.9"></td>
+                              <TD ID="63.9"></td>
+                              
+                              </tr>
+  
+                              <tr>
+                              <td style="background-color:#cdb5ff">RES</td>
+                              <td style="background-color:#cdb5ff" id="res60"> </td>
+                              <td style="background-color:#cdb5ff" id="res61"> </td>
+                              <td style="background-color:#cdb5ff" id="res62"> </td>
+                              <td style="background-color:#cdb5ff" id="res63"> </td>
+                              </tr>                        
+                              
+                              </tbody>
+                              </table>
+                      <br>
+                    </div>
+                  </div>
 
 
 
