@@ -64,8 +64,8 @@ var prono =
           
           "60":"FRA",
           "61":"ENG",
-          "62":"",
-          "63":"",
+          "62":"FRA",
+          "63":"BEL",
           "username": "Piojo"
         },
         {
